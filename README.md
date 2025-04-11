@@ -1,263 +1,91 @@
-# Fundamentos React - Projeto de Aprendizado
+# WHFF-enD - Fundamentos do React
 
-Deploy: https://feryamaha.github.io/reac-fundamentos/
+Este projeto foi desenvolvido como parte do aprendizado dos fundamentos do React, explorando conceitos importantes como Context API, Hooks, Componentização, Gerenciamento de Estado e Estilização. Ele também utiliza ferramentas modernas de desenvolvimento como Webpack e Babel para criar uma aplicação robusta e escalável.
 
-Este projeto foi desenvolvido como parte do aprendizado dos fundamentos do React, explorando conceitos importantes como Context API, Hooks, Componentização e Gerenciamento de Estado. A utilização de ferramentas modernas de desenvolvimento permitiu criar uma aplicação robusta, escalável e de fácil manutenção.
+## 📖 Estrutura do Projeto
 
-## 📖 Conceitos Fundamentais
+O projeto é dividido em várias partes principais:
 
-### O que são Hooks?
-Hooks são funções especiais do React que permitem "conectar" funcionalidades de estado e ciclo de vida do React a componentes funcionais. Antes dos Hooks, essas funcionalidades só estavam disponíveis em componentes de classe. Os principais benefícios são:
+1. **Componentes React**:
+    - `App.js`: Componente principal que gerencia o estado global, tema, linguagem e navegação.
+    - `Header.js`: Cabeçalho com navegação entre stacks e controle de tema/idioma.
+    - `IntroSection.js`: Seção inicial com introdução às stacks disponíveis.
+    - `ContentPosts.js`: Exibe os posts relacionados a uma stack e conteúdo selecionados.
+    - `Post.js` e `PostHeader.js`: Componentes para exibir posts e seus cabeçalhos.
 
-- **Reutilização de Lógica**: Permitem extrair lógica de estado e efeitos colaterais para funções reutilizáveis
-- **Componentes Mais Simples**: Substituem a complexidade dos componentes de classe
-- **Melhor Organização**: Permitem agrupar código relacionado em um único lugar
+2. **Estilização**:
+    - Utiliza SASS para modularidade e reutilização de estilos.
+    - Arquivos SCSS organizados em `src/styles/` para cada componente.
+    - Responsividade implementada com media queries.
 
-#### useState - Gerenciamento de Estado Local
-O `useState` permite adicionar estado local a componentes funcionais. No nosso projeto, usamos para gerenciar:
-- O tema da aplicação (claro/escuro)
-- A lista de posts
-- O número de likes em cada post
+3. **Dados**:
+    - Arquivos JSON em `data/` para armazenar informações sobre stacks e conteúdos.
 
-```javascript
-// Exemplo do App.js
-function App() {
-    // Estado para controlar o tema
-    const [theme, setTheme] = useState("dark");
-    
-    // Estado para gerenciar os posts
-    const [posts, setPosts] = useState([
-        { 
-            id: Math.random(), 
-            name: "React", 
-            subtitle: "Biblioteca JavaScript para construção de interfaces de usuário", 
-            likes: 200 
-        }
-    ]);
+4. **Ferramentas de Build**:
+    - Webpack para bundling e configuração de loaders (CSS, SASS, imagens, JSON).
+    - Babel para transpilação de código moderno JavaScript e JSX.
 
-    // Função para atualizar o tema
-    function handleToggleTheme() {
-        setTheme(prevState => prevState === "dark" ? "light" : "dark");
-    }
+## 🚀 Funcionalidades
 
-    // Função para adicionar likes
-    function handleAddLike(postId) {
-        setPosts(prevPosts => 
-            prevPosts.map(post => 
-                post.id === postId 
-                    ? { ...post, likes: post.likes + 1 } 
-                    : post
-            )
-        );
-    }
-}
-```
+### 1. **Gerenciamento de Tema**
+- O tema pode ser alternado entre "dark" e "light" usando o botão no cabeçalho.
+- Implementado com o `useState` e compartilhado via `ThemeContext`.
 
-#### useEffect - Efeitos Colaterais
-O `useEffect` permite executar efeitos colaterais em componentes funcionais. No nosso projeto, usamos para:
-- Persistir o tema escolhido no localStorage
-- Atualizar o título da página
-- Limpeza de recursos
+### 2. **Suporte a Idiomas**
+- Suporte a três idiomas: Português, Inglês e Espanhol.
+- O idioma pode ser alterado no cabeçalho, e os textos são atualizados dinamicamente.
 
-```javascript
-// Exemplo de uso do useEffect
-function App() {
-    const [theme, setTheme] = useState("dark");
+### 3. **Navegação entre Stacks e Conteúdos**
+- As stacks disponíveis são carregadas de `data/stacks.json`.
+- A navegação entre stacks e conteúdos é gerenciada pelo estado global no componente `App`.
 
-    useEffect(() => {
-        // Salva o tema no localStorage
-        localStorage.setItem('theme', theme);
-        
-        // Atualiza o título da página
-        document.title = `React App - ${theme} mode`;
-        
-        // Função de limpeza
-        return () => {
-            console.log('Componente desmontado');
-        };
-    }, [theme]); // Executa quando o tema muda
-}
-```
+### 4. **Estilização Avançada**
+- Estilos responsivos para diferentes tamanhos de tela.
+- Uso de variáveis SCSS para temas e transições suaves.
 
-#### useContext - Acesso ao Contexto
-O `useContext` permite acessar valores de um contexto React. No nosso projeto, usamos para:
-- Compartilhar o tema entre componentes
-- Compartilhar funções de manipulação do tema
+### 5. **Deploy Automatizado**
+- Configurado para deploy no GitHub Pages com o comando `yarn deploy`.
 
-```javascript
-// Exemplo do ThemeContext
-export const ThemeContext = createContext({
-    theme: "dark",
-    onToggleTheme: () => {}
-});
+## 🛠️ Ferramentas e Tecnologias
 
-// Uso em um componente filho
-function Button() {
-    const { theme, onToggleTheme } = useContext(ThemeContext);
-    
-    return (
-        <button 
-            onClick={onToggleTheme}
-            style={{
-                backgroundColor: theme === "dark" ? "#333" : "#fff",
-                color: theme === "dark" ? "#fff" : "#333"
-            }}
-        >
-            Mudar Tema
-        </button>
-    );
-}
-```
-
-### O que é Context API?
-Context API é um sistema do React para compartilhar dados entre componentes sem precisar passar props manualmente em cada nível da árvore de componentes (prop drilling). No nosso projeto, usamos para:
-
-- **Tema Global**: Compartilhar o estado do tema (claro/escuro) entre todos os componentes
-- **Funções Compartilhadas**: Compartilhar a função de alternar tema sem precisar passar por vários níveis
-
-```javascript
-// Exemplo completo do Context no App.js
-export const ThemeContext = createContext({
-    theme: "dark",
-    onToggleTheme: () => {}
-});
-
-function App() {
-    const [theme, setTheme] = useState("dark");
-
-    function handleToggleTheme() {
-        setTheme(prevState => prevState === "dark" ? "light" : "dark");
-    }
-
-    return (
-        <ThemeContext.Provider value={{ theme, onToggleTheme: handleToggleTheme }}>
-            <Header />
-            <PostList />
-            <Footer />
-        </ThemeContext.Provider>
-    );
-}
-```
-
-## 🎯 Benefícios das Ferramentas Utilizadas
-
-### React e React DOM
-- **Virtual DOM**: Renderização eficiente de componentes
-- **Componentização**: Reutilização de código e manutenção simplificada
-- **Hooks**: Gerenciamento de estado e efeitos colaterais de forma elegante
-- **Context API**: Compartilhamento de estado entre componentes sem prop drilling
-
-```javascript
-// Exemplo de uso do Context API e Hooks
-export const ThemeContext = createContext({
-    theme: "dark",
-    onToggleTheme: () => {}
-});
-
-function App() {
-    const [theme, setTheme] = useState("dark");
-    const [posts, setPosts] = useState([
-        { id: Math.random(), name: "Fernando", subtitle: "Desenvolvedor Frontend", likes: 200 }
-    ]);
-
-    return (
-        <ThemeContext.Provider value={{ theme, onToggleTheme: handleToggleTheme }}>
-            {/* Componentes filhos */}
-        </ThemeContext.Provider>
-    );
-}
-```
-
-### Webpack e Babel
-- **Bundling**: Otimização e minificação de código
-- **Code Splitting**: Carregamento sob demanda de módulos
-- **Hot Module Replacement**: Atualização em tempo real durante o desenvolvimento
-- **Transpilação**: Suporte a recursos modernos do JavaScript
-- **Tree Shaking**: Eliminação de código não utilizado
-
-```javascript
-// webpack.config.js
-module.exports = {
-    entry: path.resolve(__dirname, 'src', 'index.js'),
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle[hash].js',
-        publicPath: '/reac-fundamentos/'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: 'babel-loader'
-            }
-        ]
-    }
-};
-```
-
-### Plugins
-- **HTML Webpack Plugin**: Geração automática de HTML com injeção de assets
-- **Clean Webpack Plugin**: Limpeza automática de builds antigos
-- **GH Pages**: Deploy automatizado para GitHub Pages
-
-## 🚀 Tecnologias e Bibliotecas Utilizadas
-
-### Core
+### **Frontend**
 - React 19.1.0
-- React DOM 19.1.0
-- Prop Types 15.8.1
+- React Router DOM 7.5.0
+- PropTypes para validação de props.
 
-### Build Tools
-- Webpack 5.98.0
-- Webpack CLI 6.0.1
-- Webpack Dev Server 5.2.1
-- Babel Core 7.26.10
-- Babel Preset Env 7.26.9
-- Babel Preset React 7.26.3
-- Babel Loader 10.0.0
+### **Estilização**
+- SASS para modularidade e reutilização de estilos.
+- CSS Loader e Style Loader configurados no Webpack.
 
-### Plugins
-- HTML Webpack Plugin 5.6.3
-- Clean Webpack Plugin 4.0.0
-- GH Pages 6.3.0
+### **Build e Deploy**
+- Webpack 5.98.0 para bundling.
+- Babel para transpilação de código moderno.
+- GH Pages para deploy automatizado.
 
-## 📦 Instalação das Dependências
+## 📂 Estrutura de Pastas
+```
+WHFF-enD/
+├── public/     # Arquivos públicos (index.html)
+├── src/        # Código-fonte do projeto
+│   ├── assets/ # Imagens e outros assets
+│   ├── styles/ # Arquivos SCSS para estilização
+│   ├── App.js  # Componente principal
+│   └── index.js # Ponto de entrada do React
+├── data/       # Dados em JSON
+├── dist/       # Arquivos gerados pelo Webpack
+├── webpack.config.js # Configuração do Webpack
+└── package.json # Dependências e scripts
+```
+
+## 📦 Scripts Disponíveis
 
 ```bash
-# Instalação do React e React DOM
-npm install react react-dom
+# Desenvolvimento
+yarn dev    # Inicia o servidor de desenvolvimento
 
-# Instalação do Prop Types
-npm install prop-types
+# Build
+yarn build  # Gera os arquivos para produção
 
-# Instalação das ferramentas de build
-npm install --save-dev webpack webpack-cli webpack-dev-server
-
-# Instalação do Babel e seus presets
-npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader
-
-# Instalação dos plugins
-npm install --save-dev html-webpack-plugin clean-webpack-plugin gh-pages
-```
-
-## 📚 Conceitos Aprendidos
-
-### 1. Context API
-```javascript
-// Criação do Contexto
-export const ThemeContext = createContext({
-    theme: "dark",
-    onToggleTheme: () => {}
-});
-
-// Uso do Contexto em um componente
-function Button() {
-    const { theme, onToggleTheme } = useContext(ThemeContext);
-    return (
-        <button onClick={onToggleTheme}>
-            Mudar Tema
-        </button>
-    );
-}
+# Deploy
+yarn deploy # Deploy no GitHub Pages
 ```
