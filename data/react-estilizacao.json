@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "CSS Modules",
+    "content": "CSS Modules permitem estilizar componentes de forma modular, evitando conflitos de nomes."
+  },
+  {
+    "id": 2,
+    "title": "Styled Components",
+    "content": "Styled Components usa CSS-in-JS para criar estilos dinâmicos e reutilizáveis."
+  }
+]
