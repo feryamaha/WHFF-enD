@@ -4,7 +4,7 @@
   "description": "A learning hub for frontend and fullstack technologies by Fernando",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://feryamaha.github.io/WHFF-end",
+  "homepage": "https://feryamaha.github.io/WHFF-enD",
   "scripts": {
     "dev": "webpack serve --mode development --open",
     "build": "cross-env NODE_ENV=production webpack",
@@ -16,8 +16,7 @@
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^6.26.1",
-    "three": "^0.168.0"
+    "react-router-dom": "^7.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",

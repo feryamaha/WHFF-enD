@@ -8,9 +8,13 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle[hash].js',
-        publicPath: process.env.NODE_ENV === 'production' ? '/WHFF-end/' : '/',
+        publicPath: process.env.NODE_ENV === 'production' ? '/WHFF-enD/' : '/',
     },
-    devtool: process.env.NODE_ENV === 'production' ? false : 'source-map', // Source maps em dev, desativado em prod
+    devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
+
+    resolve: {
+        extensions: ['.js', '.jsx', '.scss'],
+    },
 
     plugins: [
         new HtmlWebpackPlugin({
@@ -35,10 +39,14 @@ module.exports = {
                 ],
             },
             {
-                test: /\.json$/, // Suporte para arquivos JSON
+                test: /\.json$/,
+                type: 'json',
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg)$/, // Regra para imagens
                 type: 'asset/resource',
                 generator: {
-                    filename: 'data/[name][ext]', // Coloca os arquivos JSON em dist/data/
+                    filename: 'assets/[name][ext]', // Coloca as imagens na pasta dist/assets/
                 },
             },
         ]
