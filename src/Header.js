@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
-import stacksData from '../data/stacks.json';
 import './styles/Header.scss';
 
 function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, currentLanguage, onStacksLoaded, onReset }) {
     const [stacks, setStacks] = useState([]);
 
     useEffect(() => {
-        setStacks(stacksData);
-        onStacksLoaded(stacksData);
+        fetch('/data/stacks.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar stacks.json: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                setStacks(data);
+                if (typeof onStacksLoaded === 'function') {
+                    onStacksLoaded(data);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar stacks:', error);
+                setStacks([]);
+            });
     }, [onStacksLoaded]);
 
     const handleReset = () => {
@@ -23,11 +37,15 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
             </Link>
             <nav>
                 <ul>
-                    {stacks.map(stack => (
-                        <li key={stack.id} onClick={() => onSelectStack(stack.id)}>
-                            {stack.title}
-                        </li>
-                    ))}
+                    {stacks.length > 0 ? (
+                        stacks.map(stack => (
+                            <li key={stack.id} onClick={() => onSelectStack(stack.id)}>
+                                {stack.title}
+                            </li>
+                        ))
+                    ) : (
+                        <li>Carregando...</li>
+                    )}
                 </ul>
             </nav>
             <div className="header-controls">

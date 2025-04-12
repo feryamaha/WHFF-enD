@@ -2,24 +2,29 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import '/src/styles/Post.scss';
 
-function ContentPosts({ stackId, contentId }) {
+function ContentPosts({ stackId, contentId, contents }) {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        if (stackId && contentId) {
-            fetch(`/WHFF-enD/data/${stackId}-${contentId}.json`)
-                .then(response => response.json())
-                .then(data => setPosts(data))
-                .catch(error => console.error('Erro ao carregar posts:', error));
+        // Filtrar o array de conteúdos que corresponde ao contentId
+        const selectedContent = contents.find(content => content.conceptId === contentId);
+        if (selectedContent) {
+            setPosts(selectedContent.posts || []);
+        } else {
+            setPosts([]);
         }
-    }, [stackId, contentId]);
+    }, [contentId, contents]);
 
     return (
         <div className="content-posts">
             <h2>{contentId.charAt(0).toUpperCase() + contentId.slice(1)}</h2>
-            {posts.map(post => (
-                <Post key={post.id} title={post.title} content={post.content} />
-            ))}
+            {posts.length > 0 ? (
+                posts.map(post => (
+                    <Post key={post.id} title={post.title} content={post.content} />
+                ))
+            ) : (
+                <p>Nenhum conteúdo disponível para este conceito.</p>
+            )}
         </div>
     );
 }

@@ -1,11 +1,11 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './Header';
+import Sidebar from './Sidebar';
 import ContentPosts from './ContentPosts';
 import IntroSection from './IntroSection';
 import './styles/App.scss';
 
-// Cria o ThemeContext
 export const ThemeContext = createContext();
 
 function App() {
@@ -14,22 +14,69 @@ function App() {
     const [theme, setTheme] = useState('dark');
     const [language, setLanguage] = useState('pt-br');
     const [stacks, setStacks] = useState([]);
+    const [concepts, setConcepts] = useState([]);
+    const [contents, setContents] = useState([]);
 
-    const stackContents = {
-        javascript: [],
-        typescript: [],
-        react: [
-            { id: 'estilizacao', title: language === 'pt-br' ? 'Estilização no React' : language === 'en' ? 'Styling in React' : 'Estilización en React' },
-        ],
-        'react-native': [],
-        nextjs: [],
-        tailwind: [],
-        bootstrap: [],
-    };
+    useEffect(() => {
+        fetch('/data/stacks.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                setStacks(data);
+            })
+            .catch(error => console.error('Erro ao carregar stacks:', error));
+    }, []);
+
+    useEffect(() => {
+        if (selectedStack) {
+            fetch(`/data/${selectedStack}/concepts.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setConcepts(data);
+                    if (data.length > 0 && !selectedContent) {
+                        setSelectedContent(data[0].id);
+                    }
+                })
+                .catch(error => {
+                    console.error(`Erro ao carregar conceitos para ${selectedStack}:`, error);
+                    setConcepts([]);
+                });
+
+            fetch(`/data/${selectedStack}/contents.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => setContents(data))
+                .catch(error => {
+                    console.error(`Erro ao carregar conteúdos para ${selectedStack}:`, error);
+                    setContents([]);
+                });
+        } else {
+            setConcepts([]);
+            setContents([]);
+            setSelectedContent(null);
+        }
+    }, [selectedStack]);
 
     const handleSelectStack = (stackId) => {
         setSelectedStack(stackId);
-        setSelectedContent(stackContents[stackId]?.[0]?.id || null);
+        setSelectedContent(null);
+    };
+
+    const handleSelectContent = (contentId) => {
+        setSelectedContent(contentId);
     };
 
     const toggleTheme = () => {
@@ -38,10 +85,6 @@ function App() {
 
     const changeLanguage = (lang) => {
         setLanguage(lang);
-    };
-
-    const handleStacksLoaded = (loadedStacks) => {
-        setStacks(loadedStacks);
     };
 
     const handleReset = () => {
@@ -54,34 +97,32 @@ function App() {
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <div className={`app-container ${theme}`}>
                     <Header
+                        stacks={stacks}
                         onSelectStack={handleSelectStack}
                         toggleTheme={toggleTheme}
                         changeLanguage={changeLanguage}
                         currentTheme={theme}
                         currentLanguage={language}
-                        onStacksLoaded={handleStacksLoaded}
                         onReset={handleReset}
                     />
                     {selectedStack ? (
                         <div className="main-layout">
-                            <aside className="sidebar">
-                                <h2>{selectedStack.charAt(0).toUpperCase() + selectedStack.slice(1)}</h2>
-                                <ul>
-                                    {stackContents[selectedStack]?.map(content => (
-                                        <li
-                                            key={content.id}
-                                            className={selectedContent === content.id ? 'active' : ''}
-                                            onClick={() => setSelectedContent(content.id)}
-                                        >
-                                            {content.title}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </aside>
-                            <main className="content">
+                            <Sidebar
+                                stackId={selectedStack}
+                                stackContents={concepts}
+                                selectedContent={selectedContent}
+                                onSelectContent={handleSelectContent}
+                            />
+                            <main className={`content ${theme}`}>
                                 {selectedContent ? (
-                                    <ContentPosts stackId={selectedStack} contentId={selectedContent} />
-                                ) : null}
+                                    <ContentPosts
+                                        stackId={selectedStack}
+                                        contentId={selectedContent}
+                                        contents={contents}
+                                    />
+                                ) : (
+                                    <p>Selecione um conceito no menu lateral.</p>
+                                )}
                             </main>
                         </div>
                     ) : (

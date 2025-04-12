@@ -1,0 +1,42 @@
+[
+  {
+    "id": "componentes",
+    "title": "Componentes no React"
+  },
+  {
+    "id": "estado",
+    "title": "Estado e useState"
+  },
+  {
+    "id": "props",
+    "title": "Props no React"
+  },
+  {
+    "id": "ciclo-de-vida",
+    "title": "Ciclo de Vida"
+  },
+  {
+    "id": "eventos",
+    "title": "Eventos no React"
+  },
+  {
+    "id": "renderizacao-condicional",
+    "title": "Renderização Condicional"
+  },
+  {
+    "id": "listas-e-chaves",
+    "title": "Listas e Chaves"
+  },
+  {
+    "id": "hooks",
+    "title": "Hooks no React"
+  },
+  {
+    "id": "context-api",
+    "title": "Context API"
+  },
+  {
+    "id": "performance",
+    "title": "Otimização de Performance"
+  }
+]

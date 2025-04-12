@@ -1,0 +1,24 @@
+[
+  {
+    "conceptId": "ssr",
+    "arrayId": "Array-nextjs-ssr",
+    "posts": [
+      {
+        "id": "1",
+        "title": "Post 1",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    ]
+  },
+  {
+    "conceptId": "rotas",
+    "arrayId": "Array-nextjs-rotas",
+    "posts": [
+      {
+        "id": "1",
+        "title": "Post 1",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    ]
+  }
+]

@@ -1,0 +1,71 @@
+.sidebar {
+    width: max-content;
+    padding: 5%;
+    height: 100%;
+    /* Ocupa a altura do .main-layout (entre Header e Footer) */
+    overflow-y: auto;
+    /* Scroll apenas dentro do Sidebar */
+    box-sizing: border-box;
+    border: 1PX SOLID #FFF;
+
+    &.dark {
+        background-color: #1a1a1a;
+        /* Mesmo background do projeto no modo dark */
+        color: #fff;
+
+        h2 {
+            color: #fff;
+        }
+
+        ul li {
+            color: #fff;
+
+            &:hover {
+                background-color: #444;
+            }
+
+            &.active {
+                background-color: #555;
+            }
+        }
+    }
+
+    &.light {
+        background-color: #fff;
+        /* Mesmo background do projeto no modo light */
+        color: #333;
+
+        h2 {
+            color: #333;
+        }
+
+        ul li {
+            color: #333;
+
+            &:hover {
+                background-color: #ddd;
+            }
+
+            &.active {
+                background-color: #bbb;
+            }
+        }
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+    }
+}

@@ -74,32 +74,32 @@
             grid-row: 1;
         }
 
-        .stack-grid-left .stack-item:nth-child(2) {
+        .stack-item:nth-child(2) {
             grid-column: 2;
             grid-row: 1;
         }
 
-        .stack-grid-left .stack-item:nth-child(3) {
+        .stack-item:nth-child(3) {
             grid-column: 3;
             grid-row: 1;
         }
 
-        .stack-grid-left .stack-item:nth-child(4) {
+        .stack-item:nth-child(4) {
             grid-column: 1;
             grid-row: 2;
         }
 
-        .stack-grid-left .stack-item:nth-child(5) {
+        .stack-item:nth-child(5) {
             grid-column: 2;
             grid-row: 2;
         }
 
-        .stack-grid-left .stack-item:nth-child(6) {
+        .stack-item:nth-child(6) {
             grid-column: 3;
             grid-row: 2;
         }
 
-        .stack-grid-left .stack-item:nth-child(7) {
+        .stack-item:nth-child(7) {
             grid-column: 1;
             grid-row: 3;
         }
@@ -111,12 +111,12 @@
             grid-row: 1;
         }
 
-        .stack-grid-right .stack-item:nth-child(2) {
+        .stack-item:nth-child(2) {
             grid-column: 2;
             grid-row: 1;
         }
 
-        .stack-grid-right .stack-item:nth-child(3) {
+        .stack-item:nth-child(3) {
             grid-column: 3;
             grid-row: 1;
         }
@@ -129,7 +129,6 @@
         text-align: center;
         position: relative;
         font-size: 14px;
-
         transition: all 0.3s ease;
 
         &:before {
@@ -184,32 +183,32 @@
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 1;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(4) {
+            .stack-item:nth-child(4) {
                 grid-column: 2;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(5) {
+            .stack-item:nth-child(5) {
                 grid-column: 1;
                 grid-row: 3;
             }
 
-            .stack-grid-left .stack-item:nth-child(6) {
+            .stack-item:nth-child(6) {
                 grid-column: 2;
                 grid-row: 3;
             }
 
-            .stack-grid-left .stack-item:nth-child(7) {
+            .stack-item:nth-child(7) {
                 grid-column: 1;
                 grid-row: 4;
             }
@@ -221,12 +220,12 @@
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 1;
                 grid-row: 2;
             }
@@ -257,32 +256,32 @@
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 3;
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(4) {
+            .stack-item:nth-child(4) {
                 grid-column: 1;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(5) {
+            .stack-item:nth-child(5) {
                 grid-column: 2;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(6) {
+            .stack-item:nth-child(6) {
                 grid-column: 3;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(7) {
+            .stack-item:nth-child(7) {
                 grid-column: 1;
                 grid-row: 3;
             }
@@ -294,12 +293,12 @@
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 3;
                 grid-row: 1;
             }
@@ -334,32 +333,32 @@
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-left .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 1;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(4) {
+            .stack-item:nth-child(4) {
                 grid-column: 2;
                 grid-row: 2;
             }
 
-            .stack-grid-left .stack-item:nth-child(5) {
+            .stack-item:nth-child(5) {
                 grid-column: 1;
                 grid-row: 3;
             }
 
-            .stack-grid-left .stack-item:nth-child(6) {
+            .stack-item:nth-child(6) {
                 grid-column: 2;
                 grid-row: 3;
             }
 
-            .stack-grid-left .stack-item:nth-child(7) {
+            .stack-item:nth-child(7) {
                 grid-column: 1;
                 grid-row: 4;
             }
@@ -371,12 +370,12 @@
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(2) {
+            .stack-item:nth-child(2) {
                 grid-column: 2;
                 grid-row: 1;
             }
 
-            .stack-grid-right .stack-item:nth-child(3) {
+            .stack-item:nth-child(3) {
                 grid-column: 1;
                 grid-row: 2;
             }

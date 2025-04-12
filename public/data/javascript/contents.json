@@ -1,0 +1,24 @@
+[
+  {
+    "conceptId": "variaveis",
+    "arrayId": "Array-javascript-variaveis",
+    "posts": [
+      {
+        "id": "1",
+        "title": "Variáveis em JavaScript",
+        "content": "Variáveis em JavaScript são contêineres para armazenar dados. Podem ser declaradas usando 'var', 'let' ou 'const'. O 'let' permite reatribuição de valores, 'const' cria uma variável constante, e 'var' tem escopo de função. É recomendado usar 'let' e 'const' para melhor controle de escopo."
+      }
+    ]
+  },
+  {
+    "conceptId": "funcoes",
+    "arrayId": "Array-javascript-funcoes",
+    "posts": [
+      {
+        "id": "2",
+        "title": "Funções em JavaScript",
+        "content": "Funções são blocos de código reutilizáveis que executam uma tarefa específica. Em JavaScript, podem ser declaradas usando a palavra-chave 'function' ou como arrow functions (=>). Funções podem receber parâmetros e retornar valores. São fundamentais para organização do código e aplicação do princípio DRY (Don't Repeat Yourself)."
+      }
+    ]
+  }
+]
