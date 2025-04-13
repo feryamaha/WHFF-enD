@@ -50,7 +50,7 @@ function ContentPosts({ stackId, contentId, contents }) {
                     </article>
                 ))
             ) : (
-                <p>Nenhum conteúdo disponível para este conceito.</p>
+                <p>Nenhum conteúdo disponível! Procurando por conteúdos...</p>
             )}
         </div>
     );

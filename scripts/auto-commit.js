@@ -82,37 +82,50 @@ async function updateGhPages() {
     try {
         console.log('🔄 Atualizando branch gh-pages...');
 
-        // 1. Salva o conteúdo atual da main
-        console.log('📋 Copiando arquivos da branch main...');
-        const mainFiles = execSync('git ls-tree -r main --name-only').toString().split('\n');
+        // 1. Primeiro, faz o build do projeto
+        console.log('🛠️ Gerando build de produção...');
+        execSync('yarn build', { stdio: 'inherit' });
 
         // 2. Faz checkout para gh-pages
         console.log('🔄 Fazendo checkout para gh-pages...');
         execSync('git checkout gh-pages', { stdio: 'inherit' });
 
-        // 3. Copia cada arquivo da main para gh-pages
-        console.log('📋 Colando arquivos na branch gh-pages...');
-        for (const file of mainFiles) {
-            if (file) {
-                try {
-                    const content = execSync(`git show main:${file}`).toString();
-                    fs.writeFileSync(file, content);
-                } catch (error) {
-                    console.log(`Arquivo ${file} não existe na main, pulando...`);
+        // 3. Remove arquivos antigos da gh-pages (exceto .git)
+        console.log('🗑️ Limpando arquivos antigos...');
+        const files = fs.readdirSync('.');
+        for (const file of files) {
+            if (file !== '.git') {
+                if (fs.lstatSync(file).isDirectory()) {
+                    fs.rmSync(file, { recursive: true, force: true });
+                } else {
+                    fs.unlinkSync(file);
                 }
             }
         }
 
-        // 4. Adiciona e commita as alterações
+        // 4. Copia todos os arquivos da pasta dist para a raiz
+        console.log('📋 Copiando arquivos do build...');
+        const distFiles = fs.readdirSync('dist');
+        for (const file of distFiles) {
+            const srcPath = path.join('dist', file);
+            const destPath = file;
+            if (fs.lstatSync(srcPath).isDirectory()) {
+                fs.cpSync(srcPath, destPath, { recursive: true });
+            } else {
+                fs.copyFileSync(srcPath, destPath);
+            }
+        }
+
+        // 5. Adiciona e commita as alterações
         console.log('💾 Salvando alterações na gh-pages...');
         execSync('git add .', { stdio: 'inherit' });
-        execSync('git commit -m "chore: atualiza gh-pages com conteúdo da main"', { stdio: 'inherit' });
+        execSync('git commit -m "chore: atualiza gh-pages com build mais recente"', { stdio: 'inherit' });
 
-        // 5. Push para gh-pages (com force)
+        // 6. Push para gh-pages (com force)
         console.log('⬆️ Enviando alterações para o repositório remoto...');
         execSync('git push -f origin gh-pages', { stdio: 'inherit' });
 
-        // 6. Volta para a branch main
+        // 7. Volta para a branch main
         console.log('🔄 Voltando para a branch main...');
         execSync('git checkout main', { stdio: 'inherit' });
 
