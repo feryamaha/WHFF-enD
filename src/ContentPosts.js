@@ -8,7 +8,7 @@ function ContentPosts({ stackId, contentId, contents }) {
         console.log('ContentPosts - Props:', { stackId, contentId, contents });
         const selectedContent = contents.find(content => content.conceptId === contentId);
         console.log('ContentPosts - Conteúdo selecionado:', selectedContent);
-        
+
         if (selectedContent) {
             setPosts(selectedContent.posts || []);
         } else {
@@ -26,16 +26,16 @@ function ContentPosts({ stackId, contentId, contents }) {
                         {post.content1 && <p>{post.content1}</p>}
                         {post.content2 && <p>{post.content2}</p>}
                         {post.content3 && <p>{post.content3}</p>}
-                        
+
                         {/* Link para documentação oficial */}
                         {post.docUrl && (
                             <p className="doc-link">
                                 <a href={post.docUrl} target="_blank" rel="noopener noreferrer">
-                                    Documentação Oficial
+                                    Consulte aqui a documentação oficial
                                 </a>
                             </p>
                         )}
-                        
+
                         {/* Renderiza os exemplos de código */}
                         {post.code && Array.isArray(post.code) && post.code.length > 0 && (
                             post.code.map((codeItem, index) => (

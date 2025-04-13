@@ -7,7 +7,7 @@
   "homepage": "https://feryamaha.github.io/WHFF-enD",
   "scripts": {
     "dev": "webpack serve --mode development --open",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production webpack && node scripts/auto-commit.js",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist"
   },
