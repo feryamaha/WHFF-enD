@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle[hash].js',
-        publicPath: process.env.NODE_ENV === 'production' ? '/WHFF-enD/' : '/',
+        publicPath: '/',
     },
     devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 

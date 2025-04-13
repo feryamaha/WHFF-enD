@@ -80,21 +80,40 @@ async function runDevServer() {
 // Função para atualizar a branch gh-pages corretamente
 async function updateGhPages() {
     try {
-        console.log('🔄 Atualizando branch gh-pages...');
+        console.log('🔄 Iniciando atualização da branch gh-pages...');
 
         // 1. Primeiro, faz o build do projeto
         console.log('🛠️ Gerando build de produção...');
         execSync('yarn build', { stdio: 'inherit' });
 
-        // 2. Faz checkout para gh-pages
+        // 2. Copia os arquivos necessários antes do checkout
+        console.log('📋 Copiando arquivos da dist...');
+        const tempDir = path.join(__dirname, '../temp_deploy');
+        if (fs.existsSync(tempDir)) {
+            fs.rmSync(tempDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(tempDir);
+
+        const distFiles = fs.readdirSync(path.join(__dirname, '../dist'));
+        for (const file of distFiles) {
+            const srcPath = path.join(__dirname, '../dist', file);
+            const destPath = path.join(tempDir, file);
+            if (fs.lstatSync(srcPath).isDirectory()) {
+                fs.cpSync(srcPath, destPath, { recursive: true });
+            } else {
+                fs.copyFileSync(srcPath, destPath);
+            }
+        }
+
+        // 3. Faz checkout para gh-pages
         console.log('🔄 Fazendo checkout para gh-pages...');
         execSync('git checkout gh-pages', { stdio: 'inherit' });
 
-        // 3. Remove arquivos antigos da gh-pages (exceto .git)
+        // 4. Remove arquivos antigos da gh-pages (exceto .git)
         console.log('🗑️ Limpando arquivos antigos...');
         const files = fs.readdirSync('.');
         for (const file of files) {
-            if (file !== '.git') {
+            if (file !== '.git' && file !== 'temp_deploy') {
                 if (fs.lstatSync(file).isDirectory()) {
                     fs.rmSync(file, { recursive: true, force: true });
                 } else {
@@ -103,12 +122,12 @@ async function updateGhPages() {
             }
         }
 
-        // 4. Copia todos os arquivos da pasta dist para a raiz
-        console.log('📋 Copiando arquivos do build...');
-        const distFiles = fs.readdirSync('dist');
-        for (const file of distFiles) {
-            const srcPath = path.join('dist', file);
-            const destPath = file;
+        // 5. Cola os arquivos copiados na gh-pages
+        console.log('📋 Colando arquivos na gh-pages...');
+        const tempFiles = fs.readdirSync(tempDir);
+        for (const file of tempFiles) {
+            const srcPath = path.join(tempDir, file);
+            const destPath = path.join('.', file);
             if (fs.lstatSync(srcPath).isDirectory()) {
                 fs.cpSync(srcPath, destPath, { recursive: true });
             } else {
@@ -116,16 +135,19 @@ async function updateGhPages() {
             }
         }
 
-        // 5. Adiciona e commita as alterações
+        // 6. Remove o diretório temporário
+        fs.rmSync(tempDir, { recursive: true, force: true });
+
+        // 7. Adiciona e commita as alterações
         console.log('💾 Salvando alterações na gh-pages...');
         execSync('git add .', { stdio: 'inherit' });
         execSync('git commit -m "chore: atualiza gh-pages com build mais recente"', { stdio: 'inherit' });
 
-        // 6. Push para gh-pages (com force)
+        // 8. Push para gh-pages
         console.log('⬆️ Enviando alterações para o repositório remoto...');
         execSync('git push -f origin gh-pages', { stdio: 'inherit' });
 
-        // 7. Volta para a branch main
+        // 9. Volta para a branch main
         console.log('🔄 Voltando para a branch main...');
         execSync('git checkout main', { stdio: 'inherit' });
 
@@ -134,6 +156,11 @@ async function updateGhPages() {
         console.error('❌ Erro ao atualizar gh-pages:', error.message);
         // Em caso de erro, volta para a branch main
         execSync('git checkout main', { stdio: 'inherit' });
+        // Remove diretório temporário se existir
+        const tempDir = path.join(__dirname, '../temp_deploy');
+        if (fs.existsSync(tempDir)) {
+            fs.rmSync(tempDir, { recursive: true, force: true });
+        }
     }
 }
 
