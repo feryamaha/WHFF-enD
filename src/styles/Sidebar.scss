@@ -1,16 +1,38 @@
 .sidebar {
-    width: max-content;
-    padding: 5%;
-    height: 100%;
-    /* Ocupa a altura do .main-layout (entre Header e Footer) */
-    overflow-y: auto;
-    /* Scroll apenas dentro do Sidebar */
+    width: calc(max-content - 20px);
+    padding: 20px;
+    height: auto;
     box-sizing: border-box;
-    border: 1PX SOLID #FFF;
+    overflow-y: auto;
+        border-radius: 8px;
+
+    // Definindo as variáveis CSS para o scrollbar
+    --sb-track-color: #000506;
+    --sb-thumb-color: #3e8ecf;
+    --sb-size: 8px;
+
+    // Estilização para Chrome, Edge e Safari (WebKit)
+    &::-webkit-scrollbar {
+        width: var(--sb-size);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--sb-track-color);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--sb-thumb-color);
+        border-radius: 3px;
+    }
+
+    // Estilização para Firefox
+    @supports not selector(::-webkit-scrollbar) {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
 
     &.dark {
         background-color: #1a1a1a;
-        /* Mesmo background do projeto no modo dark */
         color: #fff;
 
         h2 {
@@ -32,7 +54,6 @@
 
     &.light {
         background-color: #fff;
-        /* Mesmo background do projeto no modo light */
         color: #333;
 
         h2 {
@@ -54,18 +75,35 @@
 
     h2 {
         font-size: 1.5rem;
-        margin-bottom: 20px;
+        margin: 0;
     }
 
     ul {
         list-style: none;
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
         li {
-            padding: 10px;
+            padding: 2px 0;
             cursor: pointer;
             border-radius: 4px;
-            margin-bottom: 5px;
+            transition: all 0.4s ease-in-out;
+
+            &:hover {
+                opacity: .5;
+                border-bottom: 1px solid var(--sb-thumb-color);
+                padding: 5%;
+                text-align: center;
+            }
+
+            &.active {
+                opacity: .5;
+                border-bottom: 1px solid var(--sb-thumb-color);
+                padding: 5%;
+                text-align: center;
+            }
         }
     }
 }

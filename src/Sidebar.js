@@ -7,15 +7,20 @@ function Sidebar({ stackId, stackContents, selectedContent, onSelectContent }) {
             <h2>{stackId.charAt(0).toUpperCase() + stackId.slice(1)}</h2>
             <ul>
                 {stackContents.length > 0 ? (
-                    stackContents.map(content => (
-                        <li
-                            key={content.id}
-                            className={selectedContent === content.id ? 'active' : ''}
-                            onClick={() => onSelectContent(content.id)}
-                        >
-                            {content.title}
-                        </li>
-                    ))
+                    stackContents.map(content => {
+                        const isActive = selectedContent === content.id;
+                        const contentId = content.id;
+                        return (
+                            <li
+                                key={contentId}
+                                className={isActive ? 'active' : ''}
+                                onClick={() => onSelectContent(contentId)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {content.title}
+                            </li>
+                        );
+                    })
                 ) : (
                     <li>Nenhum conceito disponível.</li>
                 )}

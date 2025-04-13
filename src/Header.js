@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from './Button';
 import './styles/Header.scss';
 
-function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, currentLanguage, onStacksLoaded, onReset }) {
+function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, currentLanguage, onReset }) {
     const [stacks, setStacks] = useState([]);
 
     useEffect(() => {
@@ -16,15 +16,12 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
             })
             .then(data => {
                 setStacks(data);
-                if (typeof onStacksLoaded === 'function') {
-                    onStacksLoaded(data);
-                }
             })
             .catch(error => {
                 console.error('Erro ao carregar stacks:', error);
                 setStacks([]);
             });
-    }, [onStacksLoaded]);
+    }, []);
 
     const handleReset = () => {
         onReset();
@@ -61,9 +58,9 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
                     )}
                 </Button>
                 <select onChange={(e) => changeLanguage(e.target.value)} value={currentLanguage}>
-                    <option value="pt-br">🇧🇷 Português</option>
-                    <option value="en">🇬🇧 English</option>
-                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt-br">🇧🇷</option>
+                    <option value="en">🇺🇸</option>
+                    <option value="es">🇪🇸</option>
                 </select>
             </div>
         </header>
