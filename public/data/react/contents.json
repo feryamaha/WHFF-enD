@@ -1,161 +1,101 @@
 [
   {
-    "conceptId": "componentes",
-    "arrayId": "Array-react-componentes",
+    "conceptId": "react",
+    "arrayId": "array-react-react",
     "posts": [
       {
         "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "title": "React",
+        "docUrl": "https://reactjs.org/",
+        "content1": "React é uma biblioteca JavaScript para construção de interfaces de usuário. Desenvolvida pelo Facebook, é uma das bibliotecas mais populares para desenvolvimento front-end.",
+        "content2": "React se destaca por sua abordagem baseada em componentes, que permite criar interfaces de usuário complexas a partir de pequenos blocos de código reutilizáveis.",
+        "content3": "Uma das principais características do React é o Virtual DOM, uma representação em memória do DOM real. Quando os dados mudam, o React primeiro atualiza o Virtual DOM e depois compara com o DOM real para fazer apenas as alterações necessárias, resultando em uma interface mais rápida e eficiente. Além disso, o React utiliza um fluxo de dados unidirecional, o que torna o código mais previsível e fácil de depurar.",
+        "docLink": "Consulte aqui a documentação oficial - React",
+        "code": [
+          {
+            "javascript": "// Componente React básico\nimport React from 'react';\n\nfunction App() {\n  return (\n    <div>\n      <h1>Olá, React!</h1>\n    </div>\n  );\n}\n\nexport default App;"
+          }
+        ]
       }
     ]
   },
   {
-    "conceptId": "estado",
-    "arrayId": "Array-react-estado",
+    "conceptId": "components",
+    "arrayId": "array-react-components",
     "posts": [
       {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
         "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "title": "Componentes React",
+        "docUrl": "https://reactjs.org/docs/components-and-props.html",
+        "content1": "Componentes são os blocos de construção básicos de qualquer aplicação React. Eles permitem dividir a UI em partes independentes e reutilizáveis.",
+        "content2": "Cada componente deve seguir o princípio de responsabilidade única, focando em uma única funcionalidade. Isso torna o código mais fácil de manter e reutilizar. Os componentes podem receber dados através de props e manter seu próprio estado interno.",
+        "content3": "A composição de componentes é uma técnica poderosa no React, permitindo criar interfaces complexas combinando componentes menores. Isso promove a reutilização de código e torna a aplicação mais modular e fácil de manter.",
+        "docLink": "Consulte aqui a documentação oficial - Componentes React",
+        "code": [
+          {
+            "javascript": "// Componente funcional\nfunction Saudacao(props) {\n  return <h1>Olá, {props.nome}!</h1>;\n}\n\n// Componente de classe\nclass Contador extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { contador: 0 };\n  }\n  \n  render() {\n    return (\n      <div>\n        <p>Contagem: {this.state.contador}</p>\n        <button onClick={() => this.setState({ contador: this.state.contador + 1 })}>\n          Incrementar\n        </button>\n      </div>\n    );\n  }\n}\n\n// Uso dos componentes\nfunction App() {\n  return (\n    <div>\n      <Saudacao nome=\"João\" />\n      <Contador />\n    </div>\n  );\n}"
+          }
+        ]
       }
     ]
   },
   {
     "conceptId": "props",
-    "arrayId": "Array-react-props",
+    "arrayId": "array-react-props",
     "posts": [
       {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "id": "3",
+        "title": "Props em React",
+        "docUrl": "https://reactjs.org/docs/components-and-props.html",
+        "content1": "Props (propriedades) são uma forma de passar dados de um componente pai para um componente filho em React.",
+        "content2": "Para passar props para um componente, você usa a sintaxe similar a atributos HTML. O componente filho recebe as props como um objeto único, que pode ser desestruturado para facilitar o acesso aos valores. É importante lembrar que as props são imutáveis dentro do componente filho - um componente nunca deve modificar suas próprias props.",
+        "content3": "As props são fundamentais para a comunicação entre componentes no React. Elas permitem que você crie componentes reutilizáveis que podem ser configurados de diferentes maneiras. Além disso, as props são uma parte essencial do fluxo de dados unidirecional do React, onde os dados fluem do componente pai para o filho.",
+        "docLink": "Consulte aqui a documentação oficial - Props React",
+        "code": [
+          {
+            "javascript": "// Componente que recebe props\nfunction Cartao(props) {\n  return (\n    <div className=\"cartao\">\n      <h2>{props.titulo}</h2>\n      <p>{props.conteudo}</p>\n      {props.children}\n    </div>\n  );\n}\n\n// Desestruturando props\nfunction Botao({ texto, onClick, disabled }) {\n  return (\n    <button onClick={onClick} disabled={disabled}>\n      {texto}\n    </button>\n  );\n}\n\n// Uso dos componentes\nfunction App() {\n  return (\n    <div>\n      <Cartao titulo=\"Meu Cartão\" conteudo=\"Conteúdo do cartão\">\n        <p>Conteúdo adicional</p>\n      </Cartao>\n      \n      <Botao \n        texto=\"Clique aqui\"\n        onClick={() => alert('Clicou!')}\n        disabled={false}\n      />\n    </div>\n  );\n}"
+          }
+        ]
       }
     ]
   },
   {
-    "conceptId": "ciclo-de-vida",
-    "arrayId": "Array-react-ciclo-de-vida",
+    "conceptId": "state",
+    "arrayId": "array-react-state",
     "posts": [
       {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      }
-    ]
-  },
-  {
-    "conceptId": "eventos",
-    "arrayId": "Array-react-eventos",
-    "posts": [
-      {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      }
-    ]
-  },
-  {
-    "conceptId": "renderizacao-condicional",
-    "arrayId": "Array-react-renderizacao-condicional",
-    "posts": [
-      {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      }
-    ]
-  },
-  {
-    "conceptId": "listas-e-chaves",
-    "arrayId": "Array-react-listas-e-chaves",
-    "posts": [
-      {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "id": "4",
+        "title": "Estado em React",
+        "docUrl": "https://reactjs.org/docs/state-and-lifecycle.html",
+        "content1": "O estado em React é um objeto que contém dados que podem mudar ao longo do tempo e afetar o comportamento do componente.",
+        "content2": "Em componentes funcionais, o estado é gerenciado usando o Hook useState. O useState retorna um array com dois elementos: o valor atual do estado e uma função para atualizá-lo. É importante notar que as atualizações de estado são assíncronas e o React pode agrupar várias atualizações para melhor performance.",
+        "content3": "O estado deve ser usado para dados que podem mudar e que afetam a renderização do componente. É importante manter o estado o mais simples possível e evitar duplicação de dados. Para compartilhar estado entre componentes, você pode usar o Context API ou elevar o estado para um componente pai comum.",
+        "docLink": "Consulte aqui a documentação oficial - Estado React",
+        "code": [
+          {
+            "javascript": "// Estado em componente funcional\nfunction Contador() {\n  const [contador, setContador] = useState(0);\n  \n  return (\n    <div>\n      <p>Contagem: {contador}</p>\n      <button onClick={() => setContador(contador + 1)}>\n        Incrementar\n      </button>\n    </div>\n  );\n}\n\n// Estado em componente de classe\nclass ContadorClasse extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { contador: 0 };\n  }\n  \n  incrementar = () => {\n    this.setState(prevState => ({\n      contador: prevState.contador + 1\n    }));\n  }\n  \n  render() {\n    return (\n      <div>\n        <p>Contagem: {this.state.contador}</p>\n        <button onClick={this.incrementar}>\n          Incrementar\n        </button>\n      </div>\n    );\n  }\n}\n\n// Estado complexo\nfunction Formulario() {\n  const [formData, setFormData] = useState({\n    nome: '',\n    email: '',\n    senha: ''\n  });\n  \n  const handleChange = (e) => {\n    const { name, value } = e.target;\n    setFormData(prevState => ({\n      ...prevState,\n      [name]: value\n    }));\n  };\n  \n  return (\n    <form>\n      <input\n        name=\"nome\"\n        value={formData.nome}\n        onChange={handleChange}\n      />\n      {/* Outros campos */}\n    </form>\n  );\n}"
+          }
+        ]
       }
     ]
   },
   {
     "conceptId": "hooks",
-    "arrayId": "Array-react-hooks",
+    "arrayId": "array-react-hooks",
     "posts": [
       {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      }
-    ]
-  },
-  {
-    "conceptId": "context-api",
-    "arrayId": "Array-react-context-api",
-    "posts": [
-      {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      }
-    ]
-  },
-  {
-    "conceptId": "performance",
-    "arrayId": "Array-react-performance",
-    "posts": [
-      {
-        "id": "1",
-        "title": "Post 1",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-      },
-      {
-        "id": "2",
-        "title": "Post 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "id": "5",
+        "title": "Hooks em React",
+        "docUrl": "https://reactjs.org/docs/hooks-intro.html",
+        "content1": "Hooks são funções que permitem usar estado e outras características do React em componentes funcionais.",
+        "content2": "Existem vários Hooks built-in no React, como useState, useEffect, useContext, useRef, useMemo e useCallback. Cada Hook tem um propósito específico e segue a convenção de nomenclatura 'use' no início. Além disso, você pode criar seus próprios Hooks personalizados para encapsular lógica reutilizável.",
+        "content3": "Os Hooks devem ser chamados apenas no nível superior dos componentes funcionais ou de outros Hooks personalizados. Não devem ser chamados dentro de loops, condições ou funções aninhadas. Essa regra garante que os Hooks sejam chamados na mesma ordem em cada renderização.",
+        "docLink": "Consulte aqui a documentação oficial - Hooks React",
+        "code": [
+          {
+            "javascript": "// useState Hook\nfunction Contador() {\n  const [contador, setContador] = useState(0);\n  return (\n    <button onClick={() => setContador(c => c + 1)}>\n      {contador}\n    </button>\n  );\n}\n\n// useEffect Hook\nfunction ExemploEffect() {\n  useEffect(() => {\n    document.title = `Contagem: ${contador}`;\n    return () => {\n      document.title = 'React App';\n    };\n  }, [contador]);\n}\n\n// useContext Hook\nconst TemaContext = React.createContext('claro');\n\nfunction ComponenteFilho() {\n  const tema = useContext(TemaContext);\n  return <div className={tema}>Conteúdo</div>;\n}\n\n// useRef Hook\nfunction ExemploRef() {\n  const inputRef = useRef();\n  \n  useEffect(() => {\n    inputRef.current.focus();\n  }, []);\n  \n  return <input ref={inputRef} />;\n}\n\n// Hook personalizado\nfunction useContador(initialValue = 0) {\n  const [contador, setContador] = useState(initialValue);\n  \n  const incrementar = () => setContador(c => c + 1);\n  const decrementar = () => setContador(c => c - 1);\n  \n  return { contador, incrementar, decrementar };\n}\n\n// Uso do Hook personalizado\nfunction ComponenteComHook() {\n  const { contador, incrementar } = useContador(10);\n  return (\n    <button onClick={incrementar}>\n      {contador}\n    </button>\n  );\n}"
+          }
+        ]
       }
     ]
   }
