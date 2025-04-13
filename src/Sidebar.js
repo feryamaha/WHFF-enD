@@ -22,7 +22,7 @@ function Sidebar({ stackId, stackContents, selectedContent, onSelectContent }) {
                         );
                     })
                 ) : (
-                    <li>Nenhum conceito disponível.</li>
+                    <li>Problema ao carregar os conceitos...</li>
                 )}
             </ul>
         </aside>
