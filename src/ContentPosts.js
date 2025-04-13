@@ -31,7 +31,7 @@ function ContentPosts({ stackId, contentId, contents }) {
                         {post.docUrl && (
                             <p className="doc-link">
                                 <a href={post.docUrl} target="_blank" rel="noopener noreferrer">
-                                    Consulte aqui a documentação oficial
+                                    Documentação oficial!
                                 </a>
                             </p>
                         )}

@@ -8,7 +8,7 @@ function findLatestBundle() {
 
     // Verifica se o diretório dist existe
     if (!fs.existsSync(distDir)) {
-        console.error('❌ Diretório dist não encontrado. Execute yarn build primeiro.');
+        console.error('❌ Diretório dist não encontrado. Execute YARN BUILD primeiro.');
         return null;
     }
 
@@ -40,7 +40,7 @@ function wait(ms) {
 // Função para executar o servidor de desenvolvimento
 async function runDevServer() {
     return new Promise((resolve, reject) => {
-        console.log('🚀 Iniciando servidor de desenvolvimento automaticamente...');
+        console.log('🚀 Iniciando YARN DEV servidor de desenvolvimento automaticamente...');
 
         try {
             const dev = spawn('yarn', ['dev'], {
@@ -49,15 +49,25 @@ async function runDevServer() {
                 windowsHide: false
             });
 
-            // Aguarda 30 segundos para verificar se a página carregou
-            setTimeout(() => {
-                console.log('⏱️ Tempo de teste concluído, encerrando servidor...');
-                dev.kill();
-                resolve();
-            }, 30000);
+            // Contagem regressiva de 30 segundos
+            let secondsLeft = 30;
+            console.log(`⏱️ Iniciando teste de carregamento da página. Tempo restante: ${secondsLeft} segundos`);
+
+            const countdownInterval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft > 0) {
+                    console.log(`⏱️ Teste em andamento. Tempo restante: ${secondsLeft} segundos`);
+                } else {
+                    clearInterval(countdownInterval);
+                    console.log('⏱️ Tempo de teste de carregamento da pagina, encerrando servidor em 30 segundos...');
+                    dev.kill();
+                    resolve();
+                }
+            }, 1000);
 
             dev.on('error', (error) => {
                 console.error('❌ Erro ao iniciar servidor de desenvolvimento:', error.message);
+                clearInterval(countdownInterval);
                 reject(error);
             });
         } catch (error) {
@@ -98,9 +108,9 @@ async function updateGhPages() {
         execSync('git add .', { stdio: 'inherit' });
         execSync('git commit -m "chore: atualiza gh-pages com conteúdo da main"', { stdio: 'inherit' });
 
-        // 5. Push para gh-pages
+        // 5. Push para gh-pages (com force)
         console.log('⬆️ Enviando alterações para o repositório remoto...');
-        execSync('git push origin gh-pages', { stdio: 'inherit' });
+        execSync('git push -f origin gh-pages', { stdio: 'inherit' });
 
         // 6. Volta para a branch main
         console.log('🔄 Voltando para a branch main...');
@@ -121,16 +131,17 @@ async function makeCommitAndPush(bundleName) {
         execSync('git add .', { stdio: 'inherit' });
 
         // Cria o commit com o nome do bundle
-        const commitMessage = `build: novo bundle gerado - ${bundleName}`;
+        const commitMessage = `build: novo hash/bundle gerado - ${bundleName}`;
         execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
 
-        // Push para a branch main
-        execSync('git push origin main', { stdio: 'inherit' });
+        // Push para a branch main (com force)
+        console.log('⬆️ Enviando alterações para a branch main...');
+        execSync('git push -f origin main', { stdio: 'inherit' });
 
         // Atualiza a branch gh-pages
         await updateGhPages();
 
-        console.log(`✅ Processo completo realizado com sucesso para o bundle: ${bundleName}`);
+        console.log(`✅ Processo realizado com sucesso para o bundle: ${bundleName}`);
     } catch (error) {
         console.error('❌ Erro durante o processo:', error.message);
     }
