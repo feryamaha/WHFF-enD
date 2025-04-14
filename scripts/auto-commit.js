@@ -67,7 +67,7 @@ function wait(ms) {
 async function startDevServer() {
     return new Promise((resolve, reject) => {
         console.log('🚀 Iniciando servidor de desenvolvimento...');
-        
+
         try {
             const dev = spawn('yarn', ['dev'], {
                 stdio: 'inherit',
@@ -138,7 +138,7 @@ async function main() {
         // Aguarda 30 segundos para verificação manual
         console.log('⏱️ Aguardando 30 segundos para verificação da página de teste...');
         console.log('⚠️ Se encontrar problemas, interrompa o processo com Ctrl+C');
-        
+
         // Contagem regressiva de 30 segundos
         let secondsLeft = 30;
         const countdownInterval = setInterval(() => {
@@ -158,7 +158,7 @@ async function main() {
         // Faz o commit e atualiza o repositório
         await makeCommitAndPush(latestBundle);
 
-        console.log('✅ Processo foi finalizado com sucesso!');
+        console.log('✅ Autocommit e atualização do gh-pages realizada com sucesso!');
         console.log('🚀 O servidor de desenvolvimento continua rodando. Para interromper, pressione Ctrl+C.');
     } catch (error) {
         console.error('❌ Erro durante o processo:', error.message);
