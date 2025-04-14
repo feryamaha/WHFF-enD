@@ -201,9 +201,28 @@ async function makeCommitAndPush(bundleName) {
             execSync('git push origin main --force', { stdio: 'inherit' });
         }
 
-        // Atualiza gh-pages usando o pacote gh-pages
+        // Cria uma pasta temporária para os arquivos que serão publicados no gh-pages
+        const tempDir = path.join(__dirname, 'gh-pages-temp');
+        if (fs.existsSync(tempDir)) {
+            fs.rmSync(tempDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(tempDir);
+
+        // Copia os arquivos de dist/ para a pasta temporária (na raiz, sem a subpasta dist/)
+        console.log(`${DARK_GRAY}📂 Copiando arquivos de dist/ para a raiz do gh-pages...${RESET}`);
+        const distDir = path.join(__dirname, '../dist');
+        fs.readdirSync(distDir).forEach(file => {
+            const srcPath = path.join(distDir, file);
+            const destPath = path.join(tempDir, file);
+            fs.cpSync(srcPath, destPath, { recursive: true });
+        });
+
+        // Atualiza gh-pages usando o pacote gh-pages, mas publica a pasta temporária
         console.log(`${DARK_GRAY}🚀 Atualizando gh-pages...${RESET}`);
-        execSync('yarn gh-pages -d dist', { stdio: 'inherit' });
+        execSync(`yarn gh-pages -d ${tempDir}`, { stdio: 'inherit' });
+
+        // Remove a pasta temporária
+        fs.rmSync(tempDir, { recursive: true, force: true });
 
         console.log(`${GREEN}✅ Processo realizado com sucesso para o bundle: ${bundleName}${RESET}`);
     } catch (error) {
