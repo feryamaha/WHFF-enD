@@ -131,7 +131,7 @@ function App() {
                                         contents={contents}
                                     />
                                 ) : (
-                                    <p>Selecione um conceito no menu lateral...</p>
+                                    <p>Selecione um conceito ...</p>
                                 )}
                             </main>
                         </div>
@@ -151,7 +151,7 @@ function App() {
                                 </svg>
                             </a>
                         </div>
-                        <p>© 2024 - Feito por Fernando Moreira</p>
+                        <p>© 2025 - Criado por Fernando Moreira</p>
                     </footer>
                 </div>
             </ThemeContext.Provider>
