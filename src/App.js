@@ -127,7 +127,7 @@ function App() {
                                         contents={contents}
                                     />
                                 ) : (
-                                    <p>Selecione um conceito no menu lateral...</p>
+                                    <p>Selecione um conceito no menu lateral!</p>
                                 )}
                             </main>
                         </div>
