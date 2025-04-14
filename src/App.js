@@ -17,8 +17,11 @@ function App() {
     const [concepts, setConcepts] = useState([]);
     const [contents, setContents] = useState([]);
 
+    // Determina o caminho base dependendo do ambiente
+    const basePath = process.env.NODE_ENV === 'production' ? '/WHFF-enD' : '';
+
     useEffect(() => {
-        fetch('/WHFF-enD/data/stacks.json')
+        fetch(`${basePath}/data/stacks.json`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
@@ -30,13 +33,13 @@ function App() {
                 setStacks(data);
             })
             .catch(error => console.error('Erro ao carregar stacks:', error));
-    }, []);
+    }, [basePath]);
 
     useEffect(() => {
         if (selectedStack) {
             console.log('Carregando dados para stack:', selectedStack);
 
-            fetch(`/WHFF-enD/data/${selectedStack}/concepts.json`)
+            fetch(`${basePath}/data/${selectedStack}/concepts.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -53,7 +56,7 @@ function App() {
                     setConcepts([]);
                 });
 
-            fetch(`/WHFF-enD/data/${selectedStack}/contents.json`)
+            fetch(`${basePath}/data/${selectedStack}/contents.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -73,7 +76,7 @@ function App() {
             setContents([]);
             setSelectedContent(null);
         }
-    }, [selectedStack]);
+    }, [selectedStack, basePath]);
 
     const handleSelectStack = (stackId) => {
         console.log('Stack selecionado:', stackId);

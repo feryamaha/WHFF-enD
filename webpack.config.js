@@ -57,7 +57,12 @@ module.exports = {
         historyApiFallback: true,
         hot: true,
         open: true,
-        static: path.resolve(__dirname, 'public'),
+        static: [
+            {
+                directory: path.resolve(__dirname, 'public'),
+                publicPath: '/',
+            },
+        ],
         client: {
             logging: 'info',
             overlay: {
