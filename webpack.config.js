@@ -70,10 +70,8 @@ module.exports = {
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // Adiciona o plugin
 const path = require('path');
-
-// Log para depurar o ambiente
-console.log('NODE_ENV durante o build:', process.env.NODE_ENV);
 
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -92,9 +90,16 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html'),
-            publicPath: process.env.NODE_ENV === 'production' ? '/WHFF-enD/' : '/', // Forçar publicPath no plugin
         }),
         ...(process.env.NODE_ENV === 'production' ? [new CleanWebpackPlugin()] : []),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'public/data'),
+                    to: path.resolve(__dirname, 'dist/data'),
+                },
+            ],
+        }),
     ],
 
     module: {

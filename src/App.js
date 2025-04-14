@@ -17,8 +17,12 @@ function App() {
     const [concepts, setConcepts] = useState([]);
     const [contents, setContents] = useState([]);
 
+    // Define o basePath e o routerBaseName dependendo do ambiente
+    const basePath = process.env.NODE_ENV === 'production' ? '/WHFF-enD' : '';
+    const routerBaseName = process.env.NODE_ENV === 'production' ? '/WHFF-enD' : '/';
+
     useEffect(() => {
-        fetch('/data/stacks.json')
+        fetch(`${basePath}/data/stacks.json`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
@@ -30,13 +34,13 @@ function App() {
                 setStacks(data);
             })
             .catch(error => console.error('Erro ao carregar stacks:', error));
-    }, []);
+    }, [basePath]);
 
     useEffect(() => {
         if (selectedStack) {
             console.log('Carregando dados para stack:', selectedStack);
 
-            fetch(`/data/${selectedStack}/concepts.json`)
+            fetch(`${basePath}/data/${selectedStack}/concepts.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -53,7 +57,7 @@ function App() {
                     setConcepts([]);
                 });
 
-            fetch(`/data/${selectedStack}/contents.json`)
+            fetch(`${basePath}/data/${selectedStack}/contents.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -73,7 +77,7 @@ function App() {
             setContents([]);
             setSelectedContent(null);
         }
-    }, [selectedStack]);
+    }, [selectedStack, basePath]);
 
     const handleSelectStack = (stackId) => {
         console.log('Stack selecionado:', stackId);
@@ -100,7 +104,7 @@ function App() {
     };
 
     return (
-        <Router>
+        <Router basename={routerBaseName}>
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <div className={`app-container ${theme}`}>
                     <Header
