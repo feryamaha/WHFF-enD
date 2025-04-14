@@ -17,12 +17,9 @@ function App() {
     const [concepts, setConcepts] = useState([]);
     const [contents, setContents] = useState([]);
 
-    // Define o basePath e o routerBaseName dependendo do ambiente
-    const basePath = process.env.NODE_ENV === 'production' ? '/WHFF-enD' : '';
-    const routerBaseName = process.env.NODE_ENV === 'production' ? '/WHFF-enD' : '/';
-
     useEffect(() => {
-        fetch(`${basePath}/data/stacks.json`)
+        // Usa um caminho relativo explícito
+        fetch('./data/stacks.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
@@ -34,13 +31,13 @@ function App() {
                 setStacks(data);
             })
             .catch(error => console.error('Erro ao carregar stacks:', error));
-    }, [basePath]);
+    }, []);
 
     useEffect(() => {
         if (selectedStack) {
             console.log('Carregando dados para stack:', selectedStack);
 
-            fetch(`${basePath}/data/${selectedStack}/concepts.json`)
+            fetch(`./data/${selectedStack}/concepts.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -57,7 +54,7 @@ function App() {
                     setConcepts([]);
                 });
 
-            fetch(`${basePath}/data/${selectedStack}/contents.json`)
+            fetch(`./data/${selectedStack}/contents.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -77,7 +74,7 @@ function App() {
             setContents([]);
             setSelectedContent(null);
         }
-    }, [selectedStack, basePath]);
+    }, [selectedStack]);
 
     const handleSelectStack = (stackId) => {
         console.log('Stack selecionado:', stackId);
@@ -104,7 +101,7 @@ function App() {
     };
 
     return (
-        <Router basename={routerBaseName}>
+        <Router>
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <div className={`app-container ${theme}`}>
                     <Header
@@ -131,7 +128,7 @@ function App() {
                                         contents={contents}
                                     />
                                 ) : (
-                                    <p>Selecione um conceito ...</p>
+                                    <p>Selecione um conceito no menu lateral...</p>
                                 )}
                             </main>
                         </div>
@@ -151,7 +148,7 @@ function App() {
                                 </svg>
                             </a>
                         </div>
-                        <p>© 2025 - Criado por Fernando Moreira</p>
+                        <p>© 2024 - Feito por Fernando Moreira</p>
                     </footer>
                 </div>
             </ThemeContext.Provider>
