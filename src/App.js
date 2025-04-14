@@ -35,7 +35,7 @@ function App() {
     useEffect(() => {
         if (selectedStack) {
             console.log('Carregando dados para stack:', selectedStack);
-            
+
             fetch(`/data/${selectedStack}/concepts.json`)
                 .then(response => {
                     if (!response.ok) {
@@ -127,7 +127,7 @@ function App() {
                                         contents={contents}
                                     />
                                 ) : (
-                                    <p>Selecione um conceito no menu lateral.</p>
+                                    <p>Selecione um conceito no menu lateral...</p>
                                 )}
                             </main>
                         </div>
