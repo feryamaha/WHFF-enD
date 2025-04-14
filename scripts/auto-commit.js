@@ -1,3 +1,30 @@
+/**
+ * Script de Auto-Commit e Deploy
+ * 
+ * ESCopo e Lógica do Processo:
+ * 
+ * 1. INÍCIO MANUAL:
+ *    - Usuário executa 'yarn build' manualmente no terminal
+ *    - Isso gera um novo bundle na pasta 'dist'
+ * 
+ * 2. PROCESSO AUTOMÁTICO:
+ *    - Script detecta o novo bundle gerado na pasta 'dist'
+ *    - Cria commit com o nome do bundle detectado
+ *    - Faz push forçado (-f) para main (intencional para atualizar remoto)
+ *    - Atualiza branch gh-pages com os novos arquivos
+ *    - Inicia 'yarn dev' para manter a página de teste ativa
+ * 
+ * 3. ESTADO FINAL:
+ *    - Página de teste localhost fica ativa
+ *    - Servidor continua rodando indefinidamente
+ *    - Tudo permanece até próximo 'yarn build' manual
+ * 
+ * OBSERVAÇÕES IMPORTANTES:
+ * - O push forçado (-f) é intencional para atualizar o repositório remoto
+ * - O servidor deve permanecer ativo até ser interrompido manualmente
+ * - O processo só deve reiniciar quando houver um novo 'yarn build' manual
+ */
+
 const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 const path = require('path');
@@ -40,7 +67,7 @@ function wait(ms) {
 // Função para executar o servidor de desenvolvimento
 async function runDevServer() {
     return new Promise((resolve, reject) => {
-        console.log('🚀 Iniciando YARN DEV servidor de desenvolvimento automaticamente...');
+        console.log('🚀 Iniciando YARN DEV servidor de desenvolvimento...');
 
         try {
             const dev = spawn('yarn', ['dev'], {
@@ -49,27 +76,14 @@ async function runDevServer() {
                 windowsHide: false
             });
 
-            // Contagem regressiva de 30 segundos
-            let secondsLeft = 30;
-            console.log(`⏱️ Iniciando teste de carregamento da página. Tempo restante: ${secondsLeft} segundos`);
-
-            const countdownInterval = setInterval(() => {
-                secondsLeft--;
-                if (secondsLeft > 0) {
-                    console.log(`⏱️ Teste em andamento. Tempo restante: ${secondsLeft} segundos`);
-                } else {
-                    clearInterval(countdownInterval);
-                    console.log('⏱️ Tempo de teste de carregamento da pagina, encerrando servidor em 30 segundos...');
-                    dev.kill();
-                    resolve();
-                }
-            }, 1000);
-
             dev.on('error', (error) => {
                 console.error('❌ Erro ao iniciar servidor de desenvolvimento:', error.message);
-                clearInterval(countdownInterval);
                 reject(error);
             });
+
+            // Resolve imediatamente para continuar o processo
+            // O servidor continuará rodando em background
+            resolve();
         } catch (error) {
             console.error('❌ Erro ao iniciar servidor de desenvolvimento:', error.message);
             reject(error);
