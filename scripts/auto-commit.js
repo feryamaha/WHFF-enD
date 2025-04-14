@@ -12,7 +12,7 @@
  *    - Inicia o servidor de desenvolvimento (yarn dev)
  *    - Aguarda 30 segundos para verificação manual da página de teste
  *    - Se não houver interrupção manual (Ctrl+C), prossegue com:
- *      * Cria commit com o nome do bundle detectado
+ *      * Cria commit com o nome do bundle detectado (se houver alterações)
  *      * Faz push com rebase para main
  *      * Atualiza gh-pages usando o pacote gh-pages
  * 
@@ -98,6 +98,17 @@ function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Função para verificar se há alterações para commitar
+function hasChangesToCommit() {
+    try {
+        const status = execSync('git status --porcelain', { encoding: 'utf8' });
+        return status.trim().length > 0;
+    } catch (error) {
+        console.error(`${RED}❌ ERRO AO VERIFICAR STATUS DO GIT: ${error.message.toUpperCase()}${RESET}`);
+        return false;
+    }
+}
+
 // Função para iniciar o servidor de desenvolvimento
 async function startDevServer() {
     return new Promise((resolve, reject) => {
@@ -159,9 +170,14 @@ async function makeCommitAndPush(bundleName) {
         // Adiciona todas as alterações
         execSync('git add .', { stdio: 'inherit' });
 
-        // Cria o commit com o nome do bundle
-        const commitMessage = `build: novo hash/bundle gerado - ${bundleName}`;
-        execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+        // Verifica se há alterações para commitar
+        if (hasChangesToCommit()) {
+            // Cria o commit com o nome do bundle
+            const commitMessage = `build: novo hash/bundle gerado - ${bundleName}`;
+            execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+        } else {
+            console.log(`${DARK_GRAY}🔄 Nenhuma alteração para commitar. Prosseguindo com rebase e deploy...${RESET}`);
+        }
 
         // Tenta atualizar a branch local com rebase
         console.log(`${DARK_GRAY}🔄 Tentando atualizar branch local com rebase...${RESET}`);
@@ -193,6 +209,7 @@ async function makeCommitAndPush(bundleName) {
     } catch (error) {
         // Exibe qualquer outro erro genérico também em vermelho, caixa alta, com ícone
         console.error(`${RED}❌ ERRO DURANTE O PROCESSO: ${error.message.toUpperCase()}${RESET}`);
+        throw error; // Re-lança o erro para evitar mensagens duplicadas
     }
 }
 
@@ -245,5 +262,4 @@ async function main() {
 
 // Executa o script
 console.log(`${DARK_GRAY}🔄 Iniciando script de auto-commit...${RESET}`);
-main();
 main();
