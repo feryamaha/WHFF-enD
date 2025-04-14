@@ -40,7 +40,6 @@ const BLUE = '\x1b[34m'; // Azul
 const RESET = '\x1b[0m'; // Reseta a formatação
 
 // Configuração para sobrescrever as cores padrão do Webpack
-// Isso força mensagens em amarelo (como [built], [code generated]) a serem exibidas em cinza escuro
 process.env.FORCE_COLOR = '1'; // Garante que as cores sejam exibidas
 const webpackLogger = {
     info: (message) => {
@@ -111,17 +110,24 @@ async function startDevServer() {
 
             // Captura a saída do Webpack Dev Server e aplica o logger personalizado
             dev.stdout.on('data', (data) => {
-                const message = data.toString();
-                // Mantém mensagens em azul (como URLs) e verde (como "compiled successfully") como estão
-                if (message.includes('[webpack-dev-server]') || message.includes('compiled successfully')) {
+                const message = data.toString().trim();
+                // Verifica se a mensagem é informativa do Webpack Dev Server ou Middleware
+                if (
+                    message.includes('[webpack-dev-server]') ||
+                    message.includes('[webpack-dev-middleware]') ||
+                    message.includes('compiled successfully')
+                ) {
+                    // Mantém mensagens em azul (como URLs) e verde (como "compiled successfully") como estão
                     webpackLogger.raw(message);
                 } else {
+                    // Outras mensagens (como [built], [code generated]) são exibidas em cinza escuro
                     webpackLogger.info(message);
                 }
             });
 
             dev.stderr.on('data', (data) => {
-                const message = data.toString();
+                const message = data.toString().trim();
+                // Captura mensagens de erro ou warnings (como DeprecationWarning)
                 webpackLogger.error(message);
             });
 
@@ -232,4 +238,4 @@ async function main() {
 
 // Executa o script
 console.log(`${DARK_GRAY}🔄 Iniciando script de auto-commit...${RESET}`);
-main(); 
+main();
