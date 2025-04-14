@@ -1,6 +1,6 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle[hash].js',
-        publicPath: '/',
+        publicPath: process.env.NODE_ENV === 'production' ? '/WHFF-enD/' : '/',
     },
     devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 
@@ -43,10 +43,10 @@ module.exports = {
                 type: 'json',
             },
             {
-                test: /\.(png|jpg|jpeg|gif|svg)$/, // Regra para imagens
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/[name][ext]', // Coloca as imagens na pasta dist/assets/
+                    filename: 'assets/[name][ext]',
                 },
             },
         ]

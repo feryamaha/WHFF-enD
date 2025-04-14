@@ -18,7 +18,7 @@ function App() {
     const [contents, setContents] = useState([]);
 
     useEffect(() => {
-        fetch('/data/stacks.json')
+        fetch('/WHFF-enD/data/stacks.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
@@ -36,7 +36,7 @@ function App() {
         if (selectedStack) {
             console.log('Carregando dados para stack:', selectedStack);
 
-            fetch(`/data/${selectedStack}/concepts.json`)
+            fetch(`/WHFF-enD/data/${selectedStack}/concepts.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -53,7 +53,7 @@ function App() {
                     setConcepts([]);
                 });
 
-            fetch(`/data/${selectedStack}/contents.json`)
+            fetch(`/WHFF-enD/data/${selectedStack}/contents.json`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Erro HTTP: ${response.status}`);
@@ -100,7 +100,7 @@ function App() {
     };
 
     return (
-        <Router>
+        <Router basename="/WHFF-enD">
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <div className={`app-container ${theme}`}>
                     <Header
