@@ -1,0 +1,30 @@
+[
+  {
+    "id": "javascript",
+    "title": "JavaScript"
+  },
+  {
+    "id": "typescript",
+    "title": "TypeScript"
+  },
+  {
+    "id": "react",
+    "title": "React"
+  },
+  {
+    "id": "react-native",
+    "title": "React Native"
+  },
+  {
+    "id": "nextjs",
+    "title": "Next.js"
+  },
+  {
+    "id": "tailwind",
+    "title": "Tailwind CSS"
+  },
+  {
+    "id": "bootstrap",
+    "title": "Bootstrap"
+  }
+]
