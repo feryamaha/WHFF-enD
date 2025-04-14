@@ -36,7 +36,35 @@ const path = require('path');
 const DARK_GRAY = '\x1b[90m'; // Cinza escuro
 const RED = '\x1b[31m'; // Vermelho
 const GREEN = '\x1b[32m'; // Verde
+const BLUE = '\x1b[34m'; // Azul
 const RESET = '\x1b[0m'; // Reseta a formatação
+
+// Configuração para sobrescrever as cores padrão do Webpack
+// Isso força mensagens em amarelo (como [built], [code generated]) a serem exibidas em cinza escuro
+process.env.FORCE_COLOR = '1'; // Garante que as cores sejam exibidas
+const webpackLogger = {
+    info: (message) => {
+        // Substitui mensagens que seriam amarelas (como [built], [code generated]) por cinza escuro
+        console.log(`${DARK_GRAY}${message.replace(/\x1b\[[0-9;]*m/g, '')}${RESET}`);
+    },
+    warn: (message) => {
+        console.warn(`${RED}${message.toUpperCase()}${RESET}`);
+    },
+    error: (message) => {
+        console.error(`${RED}❌ ${message.toUpperCase()}${RESET}`);
+    },
+    success: (message) => {
+        console.log(`${GREEN}${message}${RESET}`);
+    },
+    // Permite que mensagens padrão do Webpack (como verde para "compiled successfully" e azul para URLs) permaneçam
+    raw: (message) => {
+        console.log(message);
+    }
+};
+
+// Configura o Webpack para usar o logger personalizado
+process.env.WEBPACK_LOGGING = 'custom'; // Pode ser necessário ajustar dependendo da versão do Webpack
+process.env.WEBPACK_LOGGER = JSON.stringify(webpackLogger);
 
 // Função para encontrar o arquivo bundle mais recente
 function findLatestBundle() {
@@ -76,9 +104,25 @@ async function startDevServer() {
 
         try {
             const dev = spawn('yarn', ['dev'], {
-                stdio: 'inherit',
+                stdio: ['pipe', 'pipe', 'pipe'], // Redireciona a saída para que possamos manipulá-la
                 shell: true,
                 windowsHide: false
+            });
+
+            // Captura a saída do Webpack Dev Server e aplica o logger personalizado
+            dev.stdout.on('data', (data) => {
+                const message = data.toString();
+                // Mantém mensagens em azul (como URLs) e verde (como "compiled successfully") como estão
+                if (message.includes('[webpack-dev-server]') || message.includes('compiled successfully')) {
+                    webpackLogger.raw(message);
+                } else {
+                    webpackLogger.info(message);
+                }
+            });
+
+            dev.stderr.on('data', (data) => {
+                const message = data.toString();
+                webpackLogger.error(message);
             });
 
             dev.on('error', (error) => {
@@ -180,7 +224,7 @@ async function main() {
         await makeCommitAndPush(latestBundle);
 
         console.log(`${GREEN}✅ Autocommit e atualização do gh-pages realizada com sucesso!${RESET}`);
-        console.log(`${DARK_GRAY}🚀 O servidor de desenvolvimento continua rodando. Para interromper, pressione Ctrl+C${RESET}`);
+        console.log(`${BLUE}🚀 O SERVIDOR DE DESENVOLVIMENTO CONTINUA RODANDO. PARA INTERROMPER, PRESSIONE CTRL+C${RESET}`);
     } catch (error) {
         console.error(`${RED}❌ ERRO DURANTE O PROCESSO: ${error.message.toUpperCase()}${RESET}`);
     }
