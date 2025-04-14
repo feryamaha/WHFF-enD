@@ -13,25 +13,8 @@ function App() {
     const [selectedContent, setSelectedContent] = useState(null);
     const [theme, setTheme] = useState('dark');
     const [language, setLanguage] = useState('pt-br');
-    const [stacks, setStacks] = useState([]);
     const [concepts, setConcepts] = useState([]);
     const [contents, setContents] = useState([]);
-
-    useEffect(() => {
-        // Usa um caminho relativo explícito
-        fetch('./data/stacks.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erro HTTP: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Stacks carregados:', data);
-                setStacks(data);
-            })
-            .catch(error => console.error('Erro ao carregar stacks:', error));
-    }, []);
 
     useEffect(() => {
         if (selectedStack) {
@@ -133,7 +116,7 @@ function App() {
                             </main>
                         </div>
                     ) : (
-                        <IntroSection language={language} stacks={stacks} />
+                        <IntroSection language={language} />
                     )}
                     <footer className="footer">
                         <div className="footer-links">
@@ -148,7 +131,7 @@ function App() {
                                 </svg>
                             </a>
                         </div>
-                        <p>© 2024 - Feito por Fernando Moreira</p>
+                        <p>© 2025 - Criado por Fernando Moreira</p>
                     </footer>
                 </div>
             </ThemeContext.Provider>
