@@ -32,12 +32,18 @@ const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 const path = require('path');
 
+// Códigos ANSI para cores
+const DARK_GRAY = '\x1b[90m'; // Cinza escuro
+const RED = '\x1b[31m'; // Vermelho
+const GREEN = '\x1b[32m'; // Verde
+const RESET = '\x1b[0m'; // Reseta a formatação
+
 // Função para encontrar o arquivo bundle mais recente
 function findLatestBundle() {
     const distDir = path.join(__dirname, '../dist');
 
     if (!fs.existsSync(distDir)) {
-        console.error('❌ Diretório dist não encontrado. Execute YARN BUILD primeiro.');
+        console.error(`${RED}❌ DIRETÓRIO DIST NÃO ENCONTRADO. EXECUTE YARN BUILD PRIMEIRO.${RESET}`);
         return null;
     }
 
@@ -47,7 +53,7 @@ function findLatestBundle() {
     );
 
     if (bundleFiles.length === 0) {
-        console.error('❌ Nenhum arquivo bundle encontrado na pasta dist');
+        console.error(`${RED}❌ NENHUM ARQUIVO BUNDLE ENCONTRADO NA PASTA DIST${RESET}`);
         return null;
     }
 
@@ -66,7 +72,7 @@ function wait(ms) {
 // Função para iniciar o servidor de desenvolvimento
 async function startDevServer() {
     return new Promise((resolve, reject) => {
-        console.log('🚀 Iniciando servidor de desenvolvimento...');
+        console.log(`${DARK_GRAY}🚀 Iniciando servidor de desenvolvimento...${RESET}`);
 
         try {
             const dev = spawn('yarn', ['dev'], {
@@ -76,7 +82,7 @@ async function startDevServer() {
             });
 
             dev.on('error', (error) => {
-                console.error('❌ Erro ao iniciar servidor de desenvolvimento:', error.message);
+                console.error(`${RED}❌ ERRO AO INICIAR SERVIDOR DE DESENVOLVIMENTO: ${error.message.toUpperCase()}${RESET}`);
                 reject(error);
             });
 
@@ -84,7 +90,7 @@ async function startDevServer() {
             // O servidor continuará rodando em background
             resolve();
         } catch (error) {
-            console.error('❌ Erro ao iniciar servidor de desenvolvimento:', error.message);
+            console.error(`${RED}❌ ERRO AO INICIAR SERVIDOR DE DESENVOLVIMENTO: ${error.message.toUpperCase()}${RESET}`);
             reject(error);
         }
     });
@@ -100,54 +106,69 @@ async function makeCommitAndPush(bundleName) {
         const commitMessage = `build: novo hash/bundle gerado - ${bundleName}`;
         execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
 
-        // Pull com rebase antes do push
-        console.log('🔄 Atualizando branch local com rebase...');
-        execSync('git pull --rebase origin main', { stdio: 'inherit' });
+        // Tenta atualizar a branch local com rebase
+        console.log(`${DARK_GRAY}🔄 Tentando atualizar branch local com rebase...${RESET}`);
+        try {
+            execSync('git pull --rebase origin main', { stdio: 'inherit' });
 
-        // Push para a branch main (com rebase)
-        console.log('⬆️ Enviando alterações para a branch main...');
-        execSync('git push origin main', { stdio: 'inherit' });
+            // Se o rebase for bem-sucedido, faz o push normalmente
+            console.log(`${DARK_GRAY}⬆️ Enviando alterações para a branch main...${RESET}`);
+            execSync('git push origin main', { stdio: 'inherit' });
+        } catch (rebaseError) {
+            // Exibe a mensagem de erro em vermelho, caixa alta, com ícone
+            console.error(`${RED}❌ FALHA AO EXECUTAR GIT PULL --REBASE ORIGIN MAIN${RESET}`);
+            console.error(`${RED}❌ CAUSA DO ERRO: CONFLITO DETECTADO DURANTE O REBASE, PROVAVELMENTE DEVIDO A ALTERAÇÕES CONCORRENTES NOS ARQUIVOS GERADOS NA PASTA DIST (COMO BUNDLE.JS OU INDEX.HTML).${RESET}`);
+
+            // Aborta o rebase para limpar o estado
+            console.log(`${DARK_GRAY}🔄 Abortando o rebase...${RESET}`);
+            execSync('git rebase --abort', { stdio: 'inherit' });
+
+            // Usa o push forçado como fallback
+            console.log(`${DARK_GRAY}⬆️ Usando git push --force como fallback para resolver o conflito...${RESET}`);
+            execSync('git push origin main --force', { stdio: 'inherit' });
+        }
 
         // Atualiza gh-pages usando o pacote gh-pages
-        console.log('🚀 Atualizando gh-pages...');
+        console.log(`${DARK_GRAY}🚀 Atualizando gh-pages...${RESET}`);
         execSync('yarn gh-pages -d dist', { stdio: 'inherit' });
 
-        console.log(`✅ Processo realizado com sucesso para o bundle: ${bundleName}`);
+        console.log(`${GREEN}✅ Processo realizado com sucesso para o bundle: ${bundleName}${RESET}`);
     } catch (error) {
-        console.error('❌ Erro durante o processo:', error.message);
+        // Exibe qualquer outro erro genérico também em vermelho, caixa alta, com ícone
+        console.error(`${RED}❌ ERRO DURANTE O PROCESSO: ${error.message.toUpperCase()}${RESET}`);
     }
 }
 
 // Função principal
 async function main() {
     try {
-        console.log('🔍 Verificando novo bundle...');
+        console.log(`${DARK_GRAY}🔍 Verificando novo bundle...${RESET}`);
 
         // Encontra o novo bundle gerado
         const latestBundle = findLatestBundle();
         if (!latestBundle) {
-            console.log('❌ Nenhum arquivo bundle encontrado na pasta dist');
+            console.log(`${DARK_GRAY}❌ Nenhum arquivo bundle encontrado na pasta dist${RESET}`);
             return;
         }
 
-        console.log(`📦 Bundle encontrado: ${latestBundle}`);
+        console.log(`${DARK_GRAY}📦 Bundle encontrado: ${latestBundle}${RESET}`);
 
         // Inicia o servidor de desenvolvimento primeiro
         await startDevServer();
 
         // Aguarda 30 segundos para verificação manual
-        console.log('⏱️ Aguardando 30 segundos para verificação da página de teste...');
-        console.log('⚠️ Se encontrar problemas, interrompa o processo com Ctrl+C');
+        console.log(`${DARK_GRAY}⏱️ Aguardando 30 segundos para verificação da página de teste...${RESET}`);
+        console.log(`${DARK_GRAY}⚠️ Se encontrar problemas, interrompa o processo com Ctrl+C${RESET}`);
 
         // Contagem regressiva de 30 segundos
         let secondsLeft = 30;
         const countdownInterval = setInterval(() => {
             secondsLeft--;
             if (secondsLeft > 0) {
-                console.log(`⏱️ Tempo restante para verificação: ${secondsLeft} segundos`);
+                console.log(`${DARK_GRAY}⏱️ Tempo restante para verificação: ${secondsLeft} segundos${RESET}`);
             } else {
                 clearInterval(countdownInterval);
-                console.log('✅ Tempo de verificação concluído. Prosseguindo com o commit e deploy...');
+                console.log(`${GREEN}✅ Tempo de verificação concluído. Prosseguindo com o commit e deploy...${RESET}`);
             }
         }, 1000);
 
@@ -158,13 +179,13 @@ async function main() {
         // Faz o commit e atualiza o repositório
         await makeCommitAndPush(latestBundle);
 
-        console.log('✅ Autocommit e atualização do gh-pages realizada com sucesso!');
-        console.log('🚀 O servidor de desenvolvimento continua rodando. Para interromper, pressione Ctrl+C.');
+        console.log(`${GREEN}✅ Autocommit e atualização do gh-pages realizada com sucesso!${RESET}`);
+        console.log(`${DARK_GRAY}🚀 O servidor de desenvolvimento continua rodando. Para interromper, pressione Ctrl+C${RESET}`);
     } catch (error) {
-        console.error('❌ Erro durante o processo:', error.message);
+        console.error(`${RED}❌ ERRO DURANTE O PROCESSO: ${error.message.toUpperCase()}${RESET}`);
     }
 }
 
 // Executa o script
-console.log('🔄 Iniciando script de auto-commit...');
+console.log(`${DARK_GRAY}🔄 Iniciando script de auto-commit...${RESET}`);
 main(); 
