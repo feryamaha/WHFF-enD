@@ -47,15 +47,17 @@ const webpackLogger = {
         console.log(`${DARK_GRAY}${message.replace(/\x1b\[[0-9;]*m/g, '')}${RESET}`);
     },
     warn: (message) => {
-        console.warn(`${RED}${message.toUpperCase()}${RESET}`);
+        // Exibe warnings em cinza escuro, caixa alta, sem ícone
+        console.warn(`${DARK_GRAY}${message.toUpperCase()}${RESET}`);
     },
     error: (message) => {
+        // Exibe erros em vermelho, caixa alta, com ícone ❌
         console.error(`${RED}❌ ${message.toUpperCase()}${RESET}`);
     },
     success: (message) => {
         console.log(`${GREEN}${message}${RESET}`);
     },
-    // Permite que mensagens padrão do Webpack (como verde para "compiled successfully" e azul para URLs) permaneçam
+    // Permite que mensagens padrão do Webpack (como azul para URLs e verde para "compiled successfully") permaneçam
     raw: (message) => {
         console.log(message);
     }
@@ -127,8 +129,13 @@ async function startDevServer() {
 
             dev.stderr.on('data', (data) => {
                 const message = data.toString().trim();
-                // Captura mensagens de erro ou warnings (como DeprecationWarning)
-                webpackLogger.error(message);
+                // Verifica se a mensagem é um warning (como DeprecationWarning)
+                if (message.includes('DeprecationWarning')) {
+                    webpackLogger.warn(message);
+                } else {
+                    // Outras mensagens de erro reais são tratadas como erro
+                    webpackLogger.error(message);
+                }
             });
 
             dev.on('error', (error) => {
@@ -238,4 +245,5 @@ async function main() {
 
 // Executa o script
 console.log(`${DARK_GRAY}🔄 Iniciando script de auto-commit...${RESET}`);
+main();
 main();
