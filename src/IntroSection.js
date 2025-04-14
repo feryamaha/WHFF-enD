@@ -27,7 +27,7 @@ function IntroSection({ language }) {
     return (
         <div className="intro-section">
             <div className="intro-content">
-                <div className="stack-grid-left">
+                {/*                 <div className="stack-grid-left">
                     {stacks.length > 0 ? (
                         stacks.map(stack => (
                             <div key={stack.id} className="stack-item">
@@ -49,7 +49,7 @@ function IntroSection({ language }) {
                     <div className="label">
                         {language === 'pt-br' ? '' : language === 'en' ? 'Static Assets' : 'Activos Estáticos'}
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
