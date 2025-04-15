@@ -233,60 +233,52 @@ WHFF-enD-1/
 - `webpack.config.js` - Configuração do Webpack
 - `package.json` - Dependências e scripts
 
-## Fluxograma do Algoritmo de Auto-Commit
+## Fluxo de Desenvolvimento e Deploy
 
 ```mermaid
 graph TD
-    A[Início: yarn build] --> B[Verifica yarn.lock]
-    B --> C[Análise de Requisitos]
-    C --> D{Problemas Encontrados?}
-    D -->|Sim| E[Classifica por Severidade]
-    D -->|Não| F[Verifica Dependências]
-    E --> G[Tenta Resolução Automática]
-    G --> H{Resolvido?}
-    H -->|Sim| F
-    H -->|Não| I[Registra no Log]
-    I --> F
-    F --> J[Inicia Servidor Dev]
-    J --> K[Aguarda 30s para Teste]
-    K --> L{Interrupção Manual?}
-    L -->|Sim| M[Encerra Processo]
-    L -->|Não| N[Faz Commit]
-    N --> O[Push com Rebase]
-    O --> P[Atualiza gh-pages]
-    P --> Q[Fim]
+    A[Início] --> B[Executar yarn build]
+    B --> C[Webpack gera bundle em dist/]
+    C --> D[Iniciar servidor de desenvolvimento]
+    D --> E[Contagem regressiva 30s]
+    E --> F{Verificação manual}
+    F -->|Problemas| G[Interromper com Ctrl+C]
+    F -->|Tudo OK| H[Commit das alterações]
+    H --> I[Rebase branch local]
+    I --> J[Push para main]
+    J --> K[Deploy para gh-pages]
+    K --> L[Ambiente de desenvolvimento ativo]
+    L --> M[Manter servidor rodando]
+    M -->|Ctrl+C| N[Fim]
 ```
 
-### Detalhamento do Fluxo
+### Descrição do Processo
 
-1. **Verificação Inicial**
-   - Verifica existência do yarn.lock
-   - Gera/atualiza se necessário
+1. **Build Inicial**
+   - Comando: `yarn build`
+   - Gera bundle otimizado na pasta `dist/`
+   - Configura ambiente para produção
 
-2. **Análise de Requisitos**
-   - Verifica versão do Node.js
-   - Verifica pacotes instalados
-   - Verifica configurações
-   - Verifica scripts
-   - Verifica estrutura de diretórios
-   - Verifica arquivos essenciais
+2. **Verificação Manual**
+   - Servidor de desenvolvimento inicia automaticamente
+   - Contagem regressiva de 30 segundos
+   - Verificações necessárias:
+     - Página abriu corretamente
+     - Componentes carregados
+     - Sem erros no console
+   - Opção de interromper com Ctrl+C se houver problemas
 
-3. **Classificação de Problemas**
-   - HIGH: Problemas críticos que impedem o funcionamento
-   - MEDIUM: Problemas que afetam o desenvolvimento
-   - LOW: Problemas de otimização
+3. **Processo Automático**
+   - Se verificação for bem sucedida:
+     - Commit com hash do bundle
+     - Rebase da branch local
+     - Push para branch main
+     - Deploy automático para gh-pages
 
-4. **Resolução Automática**
-   - Instala pacotes faltantes
-   - Atualiza versões
-   - Cria arquivos de configuração
-   - Corrige configurações
-
-5. **Processo de Build e Deploy**
-   - Inicia servidor de desenvolvimento
-   - Aguarda verificação manual
-   - Faz commit automático
-   - Atualiza gh-pages
+4. **Estado Final**
+   - Servidor de desenvolvimento permanece ativo
+   - Mensagem de confirmação em azul
+   - Opção de interromper com Ctrl+C quando necessário
 
 ## Problemas Conhecidos e Soluções
 

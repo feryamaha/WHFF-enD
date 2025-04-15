@@ -1,25 +1,55 @@
 /**
- * Script de Auto-Commit e Deploy
+ * # Auto-Commit Script - WHFF-enD
  * 
- * ESCopo e Lógica do Processo:
+ * Este script automatiza o processo de build, verificação e deploy do projeto.
  * 
- * 1. INÍCIO MANUAL:
- *    - Usuário executa 'yarn build' manualmente no terminal
- *    - Isso gera um novo bundle na pasta 'dist'
+ * ## Fluxo do Algoritmo
  * 
- * 2. PROCESSO AUTOMÁTICO:
- *    - Script detecta o novo bundle gerado na pasta 'dist'
- *    - Inicia o servidor de desenvolvimento (yarn dev)
- *    - Aguarda 30 segundos para verificação manual da página de teste
- *    - Se não houver interrupção manual (Ctrl+C), prossegue com:
- *      * Cria commit com o nome do bundle detectado (se houver alterações)
- *      * Faz push com rebase para main
- *      * Atualiza gh-pages usando o pacote gh-pages
+ * 1. **Build Inicial**
+ *    - Executa `yarn build` para gerar o bundle
+ *    - Detecta o bundle mais recente na pasta `dist/`
+ *    - Configura ambiente para produção
  * 
- * 3. ESTADO FINAL:
- *    - Servidor de desenvolvimento continua rodando
- *    - Alterações são commitadas e enviadas para o repositório
- *    - Branch gh-pages é atualizada automaticamente
+ * 2. **Verificação Manual**
+ *    - Inicia servidor de desenvolvimento
+ *    - Contagem regressiva de 30 segundos
+ *    - Durante a contagem, verifique:
+ *      - Página abriu corretamente
+ *      - Componentes carregados
+ *      - Sem erros no console
+ *    - Opção de interromper com Ctrl+C se houver problemas
+ * 
+ * 3. **Processo Automático**
+ *    - Se verificação for bem sucedida:
+ *      - Commit com hash do bundle
+ *      - Rebase da branch local
+ *      - Push para branch main
+ *      - Deploy automático para gh-pages
+ * 
+ * 4. **Estado Final**
+ *    - Servidor de desenvolvimento permanece ativo
+ *    - Mensagem de confirmação em azul
+ *    - Opção de interromper com Ctrl+C quando necessário
+ * 
+ * ## Logs e Feedback
+ * 
+ * - Logs coloridos para diferentes tipos de mensagem
+ * - Contagem regressiva clara
+ * - Mensagens de sucesso/erro em cores distintas
+ * - Instruções claras durante o processo
+ * 
+ * ## Interrupção do Processo
+ * 
+ * - Pressione Ctrl+C a qualquer momento para interromper
+ * - Útil se encontrar problemas durante a verificação
+ * - Mantém o ambiente limpo para nova tentativa
+ * 
+ * ## Requisitos
+ * 
+ * - Node.js >= 18.12.0
+ * - Yarn como gerenciador de pacotes
+ * - Git configurado com credenciais
+ * - Acesso ao repositório remoto
  */
 
 const fs = require('fs');
