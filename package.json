@@ -7,9 +7,13 @@
   "homepage": "https://feryamaha.github.io/WHFF-enD",
   "scripts": {
     "dev": "webpack serve --mode development --open",
-    "build": "cross-env NODE_ENV=production webpack && node scripts/auto-commit.js",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "build": "cross-env NODE_ENV=production webpack",
+    "deploy": "gh-pages -d dist",
+    "release": "node scripts/auto-commit.js",
+    "test": "jest",
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,scss}\""
   },
   "dependencies": {
     "prop-types": "^15.8.1",

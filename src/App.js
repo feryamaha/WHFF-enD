@@ -131,7 +131,7 @@ function App() {
                                 </svg>
                             </a>
                         </div>
-                        <p>© 2025 - Criado por Fernando Moreira</p>
+                        <p>© 2025 _ Criado por Fernando Moreira</p>
                     </footer>
                 </div>
             </ThemeContext.Provider>

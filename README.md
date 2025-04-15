@@ -180,3 +180,137 @@ git fetch origin
 git branch -r
 git ls-tree origin/gh-pages
 ```
+
+## Requisitos Elementares para Saúde do Projeto
+
+### Dependências Core
+- Node.js >= 18.12.0
+- React >= 19.1.0
+- React DOM >= 19.1.0
+- React Router DOM >= 7.5.0
+- Prop Types >= 15.8.1
+
+### Dependências de Desenvolvimento
+- Webpack >= 5.99.5
+- Webpack CLI >= 6.0.1
+- Webpack Dev Server >= 5.2.1
+- Babel Core >= 7.26.10
+- Babel Preset Env >= 7.26.9
+- Babel Preset React >= 7.26.3
+- Babel Loader >= 10.0.0
+- CSS Loader >= 7.1.2
+- Style Loader >= 4.0.0
+- SASS >= 1.86.3
+- SASS Loader >= 16.0.5
+
+### Ferramentas de Build e Deploy
+- Cross Env >= 7.0.3
+- GH Pages >= 6.3.0
+- Clean Webpack Plugin >= 4.0.0
+- Copy Webpack Plugin >= 13.0.0
+- HTML Webpack Plugin >= 5.6.3
+
+### Ferramentas de Qualidade de Código
+- ESLint
+- Prettier
+- Jest
+- @testing-library/react
+
+### Estrutura de Diretórios
+```
+WHFF-enD-1/
+├── src/              # Código fonte
+├── public/           # Arquivos estáticos
+├── dist/            # Build gerado
+├── scripts/         # Scripts de automação
+└── config/          # Arquivos de configuração
+```
+
+### Arquivos de Configuração Obrigatórios
+- `.babelrc` - Configuração do Babel
+- `.eslintrc` - Configuração do ESLint
+- `.prettierrc` - Configuração do Prettier
+- `webpack.config.js` - Configuração do Webpack
+- `package.json` - Dependências e scripts
+
+## Fluxograma do Algoritmo de Auto-Commit
+
+```mermaid
+graph TD
+    A[Início: yarn build] --> B[Verifica yarn.lock]
+    B --> C[Análise de Requisitos]
+    C --> D{Problemas Encontrados?}
+    D -->|Sim| E[Classifica por Severidade]
+    D -->|Não| F[Verifica Dependências]
+    E --> G[Tenta Resolução Automática]
+    G --> H{Resolvido?}
+    H -->|Sim| F
+    H -->|Não| I[Registra no Log]
+    I --> F
+    F --> J[Inicia Servidor Dev]
+    J --> K[Aguarda 30s para Teste]
+    K --> L{Interrupção Manual?}
+    L -->|Sim| M[Encerra Processo]
+    L -->|Não| N[Faz Commit]
+    N --> O[Push com Rebase]
+    O --> P[Atualiza gh-pages]
+    P --> Q[Fim]
+```
+
+### Detalhamento do Fluxo
+
+1. **Verificação Inicial**
+   - Verifica existência do yarn.lock
+   - Gera/atualiza se necessário
+
+2. **Análise de Requisitos**
+   - Verifica versão do Node.js
+   - Verifica pacotes instalados
+   - Verifica configurações
+   - Verifica scripts
+   - Verifica estrutura de diretórios
+   - Verifica arquivos essenciais
+
+3. **Classificação de Problemas**
+   - HIGH: Problemas críticos que impedem o funcionamento
+   - MEDIUM: Problemas que afetam o desenvolvimento
+   - LOW: Problemas de otimização
+
+4. **Resolução Automática**
+   - Instala pacotes faltantes
+   - Atualiza versões
+   - Cria arquivos de configuração
+   - Corrige configurações
+
+5. **Processo de Build e Deploy**
+   - Inicia servidor de desenvolvimento
+   - Aguarda verificação manual
+   - Faz commit automático
+   - Atualiza gh-pages
+
+## Problemas Conhecidos e Soluções
+
+### 1. Erros de Verificação de Pacotes
+**Problema**: O algoritmo está falhando ao verificar pacotes via `npm audit`
+**Causa**: O comando `npm audit` está retornando JSON inválido
+**Solução**: Implementar verificação alternativa usando `yarn audit` ou verificação direta do registry
+
+### 2. Configurações Faltantes
+**Problema**: Arquivos `.eslintrc` e `.prettierrc` não são criados automaticamente
+**Causa**: Falta de templates padrão para essas configurações
+**Solução**: Adicionar templates padrão e criar os arquivos automaticamente
+
+### 3. Scripts Faltantes
+**Problema**: Scripts de teste e lint não são adicionados automaticamente
+**Causa**: Falta de verificação de scripts no package.json
+**Solução**: Implementar adição automática de scripts padrão
+
+### 4. Verificação de Vulnerabilidades
+**Problema**: Verificação de vulnerabilidades não está funcionando corretamente
+**Causa**: Problemas com o comando `npm audit`
+**Solução**: Implementar verificação usando a API do npm ou yarn
+
+### 5. Compatibilidade de Versões
+**Problema**: Verificação de compatibilidade entre pacotes não é completa
+**Causa**: Falta de análise de dependências cruzadas
+**Solução**: Implementar análise de grafo de dependências
