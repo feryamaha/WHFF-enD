@@ -16,6 +16,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css,scss}\""
   },
   "dependencies": {
+    "framer-motion": "^12.7.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

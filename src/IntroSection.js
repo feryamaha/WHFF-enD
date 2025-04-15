@@ -1,45 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import './styles/IntroSection.scss';
+"use client";
 
-function IntroSection({ language }) {
-    const [stacks, setStacks] = useState([]); // Estado local para os stacks
+import TXTintroRotate from './TXTintroRotate';
 
-    useEffect(() => {
-        console.log('Iniciando fetch para stacks.json no IntroSection...');
-        fetch('./data/stacks.json')
-            .then(response => {
-                console.log('Resposta do fetch no IntroSection:', response);
-                if (!response.ok) {
-                    throw new Error(`Erro ao carregar stacks.json: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Stacks carregados com sucesso no IntroSection:', data);
-                setStacks(data);
-            })
-            .catch(error => {
-                console.error('Erro ao carregar stacks no IntroSection:', error);
-                setStacks([]);
-            });
-    }, []);
-
+const IntroSection = () => {
     return (
         <div className="intro-section">
-            <div className="intro-content">
-                {
-                <div className="stack-grid-right">
-                    <div className="stack-item">Posts</div>
-                    <div className="stack-item">Conteúdos</div>
-                    <div className="stack-item">Depedências</div>
-                    <div className="label">
-                        {language === 'pt-br' ? '' : language === 'en' ? 'Static Assets' : 'Activos Estáticos'}
-                    </div>
-                </div> 
-                }
-            </div>
+            <TXTintroRotate
+                texts={['React', 'Bits', 'Is', 'Cool!']}
+                mainClassName="intro-rotate-text"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="intro-rotate-word"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+            />
         </div>
     );
-}
+};
 
 export default IntroSection;
