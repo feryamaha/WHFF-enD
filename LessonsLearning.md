@@ -17,7 +17,81 @@
 - Misturar package-lock.json com yarn.lock
 - Ignorar warnings de peer dependencies
 
-## 2. Processo de Build e Deploy
+## 2. Versionamento e Deploy
+
+### O que aprendemos:
+- **Importância do rebase**: 
+  - Rebase mantém o histórico limpo e linear
+  - Evita commits de merge desnecessários
+  - Facilita a compreensão do histórico do projeto
+  - Ideal para branches de feature que serão integradas à main
+- **Deploy automático**: Integração com gh-pages
+- **Commits significativos**: Mensagens claras e descritivas
+
+### O que deu certo:
+- Uso de rebase ao invés de merge para atualizar branches
+- Script de auto-commit
+- Deploy automático para gh-pages
+
+### O que deu errado:
+- Usar push force desnecessariamente
+- Commits automáticos sem verificação
+- Ignorar conflitos durante rebase
+
+## 3. Desenvolvimento React
+
+### O que aprendemos:
+- **Componentização**:
+  - Componentes pequenos e reutilizáveis
+  - Separação clara de responsabilidades
+  - Props bem definidas e tipadas
+- **Hooks**:
+  - Uso correto de useEffect para side effects
+  - useState para gerenciamento de estado local
+  - useContext para estado global
+- **Performance**:
+  - Memoização com useMemo e useCallback
+  - Lazy loading de componentes
+  - Code splitting
+
+### O que deu certo:
+- Estrutura modular de componentes
+- Uso eficiente de hooks
+- Gerenciamento de estado com Context API
+
+### O que deu errado:
+- Componentes muito grandes
+- Efeitos colaterais mal gerenciados
+- Re-renders desnecessários
+
+## 4. Estilização e SCSS
+
+### O que aprendemos:
+- **SCSS vs CSS Inline**:
+  - SCSS oferece melhor organização e manutenção
+  - Variáveis para temas e cores
+  - Mixins para reutilização de estilos
+  - Aninhamento para melhor legibilidade
+- **Modularização**:
+  - Arquivos SCSS por componente
+  - Importação seletiva de estilos
+  - Escopo de estilos limitado ao componente
+- **Responsividade**:
+  - Media queries organizadas
+  - Breakpoints consistentes
+  - Layout fluido
+
+### O que deu certo:
+- Estrutura modular de estilos
+- Uso de variáveis para temas
+- Responsividade bem implementada
+
+### O que deu errado:
+- Estilos inline em componentes
+- Duplicação de código CSS
+- Media queries inconsistentes
+
+## 5. Processo de Build e Deploy
 
 ### O que aprendemos:
 - **Importância da verificação manual**: Os 30 segundos de verificação são cruciais
@@ -34,107 +108,46 @@
 - Executar deploy antes de confirmar que tudo está funcionando
 - Não ter logs claros do processo
 
-## 3. Configuração do Projeto
-
-### O que aprendemos:
-- **Webpack vs Create React App**: Entender quando usar cada um
-- **Importância das configurações**: Babel, ESLint, Prettier
-- **Estrutura de diretórios**: Manter organização clara
-
-### O que deu certo:
-- Configuração personalizada do Webpack
-- Uso de loaders específicos (sass, babel)
-- Estrutura modular do projeto
-
-### O que deu errado:
-- Tentar usar CRA em um projeto Webpack
-- Configurações conflitantes
-- Ignorar warnings de depreciação
-
-## 4. Versionamento e Deploy
-
-### O que aprendemos:
-- **Importância do rebase**: Manter histórico limpo
-- **Deploy automático**: Integração com gh-pages
-- **Commits significativos**: Mensagens claras e descritivas
-
-### O que deu certo:
-- Script de auto-commit
-- Deploy automático para gh-pages
-- Rebase antes do push
-
-### O que deu errado:
-- Commits automáticos sem verificação
-- Push force sem necessidade
-- Ignorar conflitos durante rebase
-
-## 5. Desenvolvimento e Manutenção
-
-### O que aprendemos:
-- **Importância dos logs**: Feedback claro do processo
-- **Verificação contínua**: Testar em cada etapa
-- **Documentação**: Manter README e logs atualizados
-
-### O que deu certo:
-- Sistema de logs coloridos
-- Verificação manual antes do deploy
-- Documentação detalhada do processo
-
-### O que deu errado:
-- Automatizar sem feedback
-- Ignorar warnings do console
-- Não documentar mudanças
-
 ## 6. Melhores Práticas Identificadas
 
-1. **Sempre verificar antes de deploy**
-   - Testar localmente
-   - Verificar console
-   - Confirmar funcionamento
+1. **Versionamento**:
+   - Usar rebase ao invés de merge para branches de feature
+   - Commits atômicos e bem descritos
+   - Manter histórico limpo e linear
 
-2. **Manter logs claros**
-   - Usar cores para diferentes tipos de mensagem
-   - Incluir timestamps
-   - Mostrar progresso
+2. **React**:
+   - Componentes pequenos e focados
+   - Hooks bem utilizados
+   - Performance otimizada
 
-3. **Gerenciar dependências com cuidado**
-   - Verificar compatibilidade
-   - Limpar cache regularmente
-   - Manter lockfiles atualizados
+3. **Estilização**:
+   - SCSS modular
+   - Variáveis para temas
+   - Responsividade consistente
 
-4. **Documentar processos**
-   - Atualizar README
-   - Manter changelog
-   - Documentar decisões
-
-5. **Manter ambiente de desenvolvimento ativo**
-   - Servidor rodando para testes
-   - Hot reload para desenvolvimento
-   - Opção de interromper quando necessário
+4. **Build e Deploy**:
+   - Verificação manual antes do deploy
+   - Logs claros e detalhados
+   - Processo bem definido
 
 ## 7. Próximos Passos e Melhorias
 
-1. **Automação com testes**
+1. **Automação**:
    - Implementar testes automatizados
-   - Integrar com CI/CD
-   - Adicionar verificações de qualidade
+   - CI/CD pipeline
+   - Verificações de qualidade
 
-2. **Monitoramento**
-   - Adicionar analytics
-   - Monitorar erros
-   - Rastrear performance
+2. **Documentação**:
+   - Guia de contribuição
+   - Documentação de componentes
+   - Changelog atualizado
 
-3. **Documentação**
-   - Criar guia de contribuição
-   - Documentar arquitetura
-   - Manter changelog atualizado
+3. **Performance**:
+   - Otimização de bundle
+   - Lazy loading
+   - Cache de assets
 
-4. **Segurança**
-   - Verificar vulnerabilidades
-   - Implementar boas práticas
-   - Manter dependências atualizadas
-
-5. **Performance**
-   - Otimizar bundle
-   - Implementar lazy loading
-   - Melhorar tempo de build 
+4. **Segurança**:
+   - Verificação de vulnerabilidades
+   - Boas práticas de segurança
+   - Dependências atualizadas 
