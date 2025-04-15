@@ -50,26 +50,22 @@
 
     .intro-content {
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        gap: 50px;
         position: relative;
         z-index: 1;
-        width: max-content;
         height: 100px;
-        max-width: 1200px;
-        padding: 0 20px;
+        max-width: max-content;
         box-sizing: border-box;
 
         .fixed-text {
             width: 100%;
             padding: 0 20px;
-            margin: 0 auto;
 
             span {
                 font-size: 64px;
                 font-weight: 600;
-                color: #7b7575;
+                color: #c7c7c7;
                 text-align: center;
             }
         }

@@ -2,19 +2,21 @@
     display: flex;
     justify-content: center;
     position: relative;
-    min-height: 1em;
     overflow: hidden;
     background-color: #4a90e2;
     width: max-content;
+    width: 100%;
     padding: 5% 10%;
     text-align: center;
     font-size: 72px;
     border-radius: 10px;
+    background-color: none;
 
     @media (max-width: 768px) {
-        width: 100%;
+        display: flex;
+        justify-content: right;
         font-size: 48px;
-        margin: 0 auto;
+        align-items: flex-start;
     }
 
 }

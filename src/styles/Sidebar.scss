@@ -149,34 +149,39 @@
     padding: 0.5rem;
     z-index: 9999;
     position: fixed;
-    top: 18%;
-    left: 20px;
+    top: 15%;
+    left: 10px;
     transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    background-color: #79b6e8;
+    width: 25px;
+    height: 25px;
+    background-color: #4a90e2;
     border-radius: 5px;
+
     span {
         display: block;
         width: 25px;
-        height: 2px;
+        height: 25px;
         background-color: #fff;
-        margin: 4px 0;
+        /* margin: 4px 0; */
         transition: all 0.3s ease-in-out;
         position: relative;
+        border-radius: 5px;
     }
 
     &.open {
         span:nth-child(1) {
             transform: rotate(45deg) translate(4px, 4px);
+            background-color: red;
         }
 
         span:nth-child(2) {
             opacity: 0;
+
         }
 
         span:nth-child(3) {
             transform: rotate(-45deg) translate(4px, -4px);
+            background-color: red;
         }
     }
 

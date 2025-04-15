@@ -41,14 +41,12 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
             <Link to="/" onClick={handleReset}>
                 <h1>WHFF-enD</h1>
             </Link>
-            
-            <button 
-                className={`menu-button ${isMenuOpen ? 'open' : ''}`} 
+
+            <button
+                className={`menu-button ${isMenuOpen ? 'open' : ''}`}
                 onClick={toggleMenu}
                 aria-label="Menu"
             >
-                <span></span>
-                <span></span>
                 <span></span>
             </button>
 

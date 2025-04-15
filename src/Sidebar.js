@@ -15,16 +15,14 @@ function Sidebar({ stackId, stackContents, selectedContent, onSelectContent }) {
 
     return (
         <>
-            <button 
+            <button
                 className={`sidebar-toggle ${isMenuOpen ? 'open' : ''}`}
                 onClick={toggleMenu}
                 aria-label="Toggle sidebar menu"
             >
                 <span></span>
-                <span></span>
-                <span></span>
             </button>
-            
+
             <aside className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
                 <h2>{stackId.charAt(0).toUpperCase() + stackId.slice(1)}</h2>
                 <ul>
