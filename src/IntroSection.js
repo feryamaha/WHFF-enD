@@ -61,7 +61,7 @@ function IntroSection({ language }) {
     return (
         <div className="intro-section">
             <ErrorBoundary>
-                <div className="intro-content">
+                <div className="intro-content" >
                     <div className="fixed-text">
                         <span className="text-cyan-300 font-bold text-2xl sm:text-3xl md:text-4xl">WHFF.enD</span>
                     </div>

@@ -16,7 +16,6 @@
     a {
         text-decoration: none;
         color: #3e8ecf;
-
     }
 
     h1 {
@@ -85,6 +84,8 @@
         display: flex;
         gap: 15px;
         align-items: center;
+        width: max-content;
+        padding: 0 20px;
 
         select {
             background-color: #2a2a2a;
@@ -102,16 +103,17 @@
 
         .nav-menu ul {
             gap: 15px;
-
-            li {
-                font-size: 14px;
-            }
         }
     }
 
     @media (max-width: 992px) {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         gap: 10px;
+
+        a {
+            display: none;
+        }
 
         .nav-menu ul {
             flex-wrap: wrap;
@@ -126,6 +128,8 @@
             position: relative;
             z-index: 9;
             background: transparent;
+            background-color: #79b6e8;
+            border-radius: 5px;
 
             span {
                 background-color: #fff;
@@ -138,13 +142,17 @@
             position: fixed;
             top: 0;
             right: -100%;
-            width: 70%;
-            height: 100vh;
+            width: 30%;
+            height: max-content;
             background-color: #1a1a1a;
             transition: right 0.3s ease-in-out;
-            padding: 5rem 1rem 1rem;
+            padding: 5%;
             z-index: 998;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            box-shadow: -2px 0 5px rgba(132, 131, 131, 0.2);
+            border-left: 1px solid #444;
+            border-bottom: 1px solid #444;
+            border-bottom-left-radius: 50%;
+            border-top-left-radius: 10%;
 
             &.open {
                 display: block;
@@ -154,15 +162,15 @@
             ul {
                 flex-direction: column;
                 align-items: center;
-                padding-top: 2rem;
+                padding-top: 2px;
 
                 li {
-                    margin: 1rem 0;
-                    font-size: 1.2rem;
+                    margin: 0;
                     width: 100%;
                     text-align: center;
                     padding: 0.5rem;
                     color: #fff;
+                    font-size: 18px;
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.1);
@@ -172,29 +180,4 @@
         }
     }
 
-    @media (max-width: 560px) {
-        padding: 10px;
-
-        h1 {
-            font-size: 20px;
-        }
-
-        .nav-menu ul {
-            gap: 8px;
-
-            li {
-                font-size: 12px;
-                padding: 5px;
-            }
-        }
-
-        .header-controls {
-            gap: 10px;
-
-            select {
-                font-size: 12px;
-                padding: 3px;
-            }
-        }
-    }
 }

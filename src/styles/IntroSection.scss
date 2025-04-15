@@ -12,6 +12,8 @@
     width: 100%;
     box-sizing: border-box;
 
+
+
     // Logo fixa no background
     &:before {
         content: '';
@@ -60,13 +62,17 @@
         box-sizing: border-box;
 
         .fixed-text {
+            width: 100%;
+            padding: 0 20px;
+            margin: 0 auto;
+
             span {
                 font-size: 64px;
                 font-weight: 600;
                 color: #7b7575;
+                text-align: center;
             }
         }
-
     }
 
     .stack-grid-left,
@@ -249,8 +255,9 @@
     @media (max-width: 992px) {
         .intro-content {
             flex-direction: column;
-            gap: 20px;
-            max-width: 600px;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
         }
 
         .stack-grid-left,
