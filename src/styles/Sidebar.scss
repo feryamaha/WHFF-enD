@@ -4,7 +4,8 @@
     height: auto;
     box-sizing: border-box;
     overflow-y: auto;
-        border-radius: 8px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
 
     // Definindo as variáveis CSS para o scrollbar
     --sb-track-color: #000506;
@@ -105,5 +106,80 @@
                 text-align: center;
             }
         }
+    }
+
+    // Media query para telas menores que 768px
+    @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100vh;
+        z-index: 997;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        background: #000;
+
+        &.open {
+            left: 0;
+        }
+
+        ul {
+            padding-top: 2rem;
+
+            li {
+                padding: 1rem;
+                text-align: center;
+                width: 100%;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+    }
+}
+
+// Estilos do botão do menu hamburguer (fora da classe .sidebar)
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 9999;
+    position: fixed;
+    top: 35%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 20px;
+
+    span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: #fff;
+        margin: 4px 0;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+    }
+
+    &.open {
+        span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        span:nth-child(2) {
+            opacity: 0;
+        }
+
+        span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        display: block;
     }
 }
