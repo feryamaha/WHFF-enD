@@ -12,6 +12,23 @@
     width: 100%;
     box-sizing: border-box;
 
+    .intro-rotate-text {
+        padding: 0.5rem 1rem;
+        background-color: #3e8ecf;
+        color: black;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .intro-rotate-word {
+        overflow: hidden;
+        padding-bottom: 0.5rem;
+    }
+
     // Logo fixa no background
     &:before {
         content: '';
