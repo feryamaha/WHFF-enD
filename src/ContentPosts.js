@@ -30,7 +30,7 @@ function ContentPosts({ stackId, contentId, contents }) {
                         {/* Link para documentação oficial */}
                         {post.docUrl && (
                             <p className="doc-link">
-                                <a href={post.docUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'red' }}>
+                                <a href={post.docUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#4a90e2' }}>
                                     Documentação oficial!
                                 </a>
                             </p>

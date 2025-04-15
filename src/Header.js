@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import './styles/Header.scss';
 
 function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, currentLanguage, onReset }) {
     const [stacks, setStacks] = useState([]);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Iniciando fetch para stacks.json...');
@@ -30,16 +32,34 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
         onReset();
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <header className="header">
             <Link to="/" onClick={handleReset}>
                 <h1>WHFF-enD</h1>
             </Link>
-            <nav>
+            
+            <button 
+                className={`menu-button ${isMenuOpen ? 'open' : ''}`} 
+                onClick={toggleMenu}
+                aria-label="Menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
                     {stacks.length > 0 ? (
                         stacks.map(stack => (
-                            <li key={stack.id} onClick={() => onSelectStack(stack.id)}>
+                            <li key={stack.id} onClick={() => {
+                                onSelectStack(stack.id);
+                                setIsMenuOpen(false);
+                            }}>
                                 {stack.title}
                             </li>
                         ))
@@ -48,6 +68,7 @@ function Header({ onSelectStack, toggleTheme, changeLanguage, currentTheme, curr
                     )}
                 </ul>
             </nav>
+
             <div className="header-controls">
                 <Button onClick={toggleTheme} className="theme-toggle">
                     {currentTheme === 'dark' ? (
