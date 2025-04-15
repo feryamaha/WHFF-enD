@@ -7,21 +7,15 @@
   "homepage": "https://feryamaha.github.io/WHFF-enD",
   "scripts": {
     "dev": "webpack serve --mode development --open",
-    "build": "cross-env NODE_ENV=production webpack",
-    "postbuild": "node scripts/auto-commit.js",
-    "deploy": "gh-pages -d dist",
-    "test": "jest",
-    "lint": "eslint src/**/*.{js,jsx}",
-    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
-    "format": "prettier --write \"src/**/*.{js,jsx,css,scss}\""
+    "build": "cross-env NODE_ENV=production webpack && node scripts/auto-commit.js",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "framer-motion": "^12.7.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.0",
-    "react-typewriter-effect": "^1.1.0"
+    "react-router-dom": "^7.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -37,7 +31,7 @@
     "sass": "^1.86.3",
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
-    "webpack": "^5.99.5",
+    "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
   }
