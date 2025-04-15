@@ -15,6 +15,7 @@
     a {
         text-decoration: none;
         color: #3e8ecf;
+
     }
 
     h1 {
@@ -33,12 +34,15 @@
         li {
             cursor: pointer;
             padding: 5px 10px;
-            font-size: 16px;
-            color: #ccc;
-            transition: color 0.3s;
+            font-size: 32px;
+            color: #9a9797;
+            transition: 0.7s all ease-in-out;
 
             &:hover {
                 color: #fff;
+                cursor: pointer;
+                transform: translateY(2px);
+
             }
         }
     }

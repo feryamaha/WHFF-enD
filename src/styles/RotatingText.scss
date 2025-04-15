@@ -1,3 +1,17 @@
+.rotating-text {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    min-height: 1em;
+    overflow: hidden;
+    background-color: #4a90e2;
+    width: max-content;
+    padding: 5% 10%;
+    text-align: center;
+    font-size: 72px;
+    border-radius: 10px;
+}
+
 .text-rotate {
     display: flex;
     flex-wrap: wrap;
@@ -5,11 +19,26 @@
     position: relative;
 }
 
+.text-rotate-word {
+    display: inline-flex;
+}
+
+.text-rotate-element {
+    display: inline-block;
+    font-weight: 600;
+    color: #000;
+
+}
+
+.text-rotate-space {
+    white-space: pre;
+}
+
 .text-rotate-sr-only {
     position: absolute;
     width: 1px;
-    height: 1px;
-    padding: 0;
+    height: 100px;
+    padding: 5%;
     margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
@@ -17,20 +46,8 @@
     border: 0;
 }
 
-.text-rotate-word {
-    display: inline-flex;
-}
-
 .text-rotate-lines {
     display: flex;
     flex-direction: column;
     width: 100%;
-}
-
-.text-rotate-element {
-    display: inline-block;
-}
-
-.text-rotate-space {
-    white-space: pre;
 }
