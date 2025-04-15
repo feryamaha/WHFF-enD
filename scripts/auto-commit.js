@@ -31,10 +31,13 @@ const DARK_GRAY = '\x1b[90m';
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
 const BLUE = '\x1b[34m';
+const YELLOW = '\x1b[33m';
 const RESET = '\x1b[0m';
 
 // Função para encontrar o arquivo bundle mais recente
 function findLatestBundle() {
+    console.log(`${DARK_GRAY}🔍 Procurando bundle mais recente em dist/...${RESET}`);
+    
     const distDir = path.join(__dirname, '../dist');
     if (!fs.existsSync(distDir)) {
         console.error(`${RED}❌ DIRETÓRIO DIST NÃO ENCONTRADO. EXECUTE YARN BUILD PRIMEIRO.${RESET}`);
@@ -49,17 +52,20 @@ function findLatestBundle() {
         return null;
     }
 
-    return bundleFiles.reduce((latest, current) => {
+    const latestBundle = bundleFiles.reduce((latest, current) => {
         const latestPath = path.join(distDir, latest);
         const currentPath = path.join(distDir, current);
         return fs.statSync(latestPath).mtime > fs.statSync(currentPath).mtime ? latest : current;
     });
+
+    console.log(`${GREEN}✅ Bundle encontrado: ${latestBundle}${RESET}`);
+    return latestBundle;
 }
 
 // Função para iniciar o servidor de desenvolvimento
 async function startDevServer() {
     return new Promise((resolve, reject) => {
-        console.log(`${DARK_GRAY}🚀 Iniciando servidor de desenvolvimento...${RESET}`);
+        console.log(`${DARK_GRAY}🚀 Iniciando servidor de desenvolvimento em localhost:3000...${RESET}`);
 
         try {
             const dev = spawn('yarn', ['dev'], {
@@ -69,7 +75,11 @@ async function startDevServer() {
             });
 
             dev.stdout.on('data', (data) => {
-                console.log(`${DARK_GRAY}${data.toString().trim()}${RESET}`);
+                const output = data.toString().trim();
+                if (output.includes('webpack compiled successfully')) {
+                    console.log(`${GREEN}✅ Servidor iniciado. Abrindo navegador...${RESET}`);
+                }
+                console.log(`${DARK_GRAY}${output}${RESET}`);
             });
 
             dev.stderr.on('data', (data) => {
@@ -92,24 +102,28 @@ async function startDevServer() {
 // Função para fazer o commit e atualizar o repositório
 async function makeCommitAndPush(bundleName) {
     try {
+        console.log(`${DARK_GRAY}📝 Verificando alterações para commit...${RESET}`);
+        
         // Adiciona todas as alterações
         execSync('git add .', { stdio: 'inherit' });
 
         // Verifica se há alterações para commitar
         const status = execSync('git status --porcelain', { encoding: 'utf8' });
         if (status.trim().length > 0) {
+            console.log(`${GREEN}✅ Alterações encontradas. Criando commit...${RESET}`);
             // Cria o commit com o nome do bundle
             const commitMessage = `build: novo hash/bundle gerado - ${bundleName}`;
             execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
         } else {
-            console.log(`${DARK_GRAY}🔄 Nenhuma alteração para commitar. Prosseguindo com rebase e deploy...${RESET}`);
+            console.log(`${BLUE}ℹ️ Nenhuma alteração para commitar${RESET}`);
         }
 
         // Tenta atualizar a branch local com rebase
-        console.log(`${DARK_GRAY}🔄 Tentando atualizar branch local com rebase...${RESET}`);
+        console.log(`${DARK_GRAY}🔄 Atualizando branch local...${RESET}`);
         try {
             execSync('git pull --rebase origin main', { stdio: 'inherit' });
             execSync('git push origin main', { stdio: 'inherit' });
+            console.log(`${GREEN}✅ Branch local atualizada${RESET}`);
         } catch (rebaseError) {
             console.error(`${RED}❌ FALHA AO EXECUTAR GIT PULL --REBASE ORIGIN MAIN${RESET}`);
             console.error(`${RED}❌ CAUSA DO ERRO: CONFLITO DETECTADO DURANTE O REBASE${RESET}`);
@@ -119,8 +133,9 @@ async function makeCommitAndPush(bundleName) {
         }
 
         // Atualiza gh-pages
-        console.log(`${DARK_GRAY}🚀 Atualizando gh-pages...${RESET}`);
+        console.log(`${DARK_GRAY}🚀 Iniciando deploy para gh-pages...${RESET}`);
         execSync('yarn gh-pages -d dist', { stdio: 'inherit' });
+        console.log(`${GREEN}✅ Deploy concluído com sucesso${RESET}`);
 
         console.log(`${GREEN}✅ Processo realizado com sucesso para o bundle: ${bundleName}${RESET}`);
     } catch (error) {
@@ -132,8 +147,10 @@ async function makeCommitAndPush(bundleName) {
 // Função principal
 async function main() {
     try {
+        console.log(`${BLUE}🔄 Iniciando processo de build e deploy...${RESET}`);
+        console.log(`${BLUE}═══════════════════════════════════════${RESET}`);
+        
         // 1. Encontra o bundle mais recente
-        console.log(`${DARK_GRAY}🔍 Procurando bundle mais recente...${RESET}`);
         const latestBundle = findLatestBundle();
         if (!latestBundle) {
             throw new Error('Nenhum arquivo bundle encontrado na pasta dist');
@@ -143,14 +160,19 @@ async function main() {
         await startDevServer();
 
         // 3. Aguarda 30 segundos para verificação manual
-        console.log(`${DARK_GRAY}⏳ Aguardando 30 segundos para verificação manual...${RESET}`);
-        console.log(`${DARK_GRAY}⚠️ Pressione Ctrl+C se encontrar problemas${RESET}`);
+        console.log(`${BLUE}⏳ Aguardando 30 segundos para verificação manual da página...${RESET}`);
+        console.log(`${YELLOW}⚠️ Verifique se:${RESET}`);
+        console.log(`${YELLOW}  - A página abriu corretamente${RESET}`);
+        console.log(`${YELLOW}  - Todos os componentes carregaram${RESET}`);
+        console.log(`${YELLOW}  - Não há erros no console do navegador${RESET}`);
+        console.log(`${YELLOW}  - Pressione Ctrl+C se encontrar problemas${RESET}`);
+        
         await new Promise(resolve => setTimeout(resolve, 30000));
 
         // 4. Faz o commit e atualiza o repositório
-        console.log(`${DARK_GRAY}📝 Preparando auto-commit...${RESET}`);
         await makeCommitAndPush(latestBundle);
 
+        console.log(`${BLUE}═══════════════════════════════════════${RESET}`);
         console.log(`${GREEN}✅ Processo concluído com sucesso!${RESET}`);
         console.log(`${BLUE}🚀 Projeto buildado, deployado e atualizado.${RESET}`);
 
@@ -161,5 +183,4 @@ async function main() {
 }
 
 // Executa o script
-console.log(`${DARK_GRAY}🔄 Iniciando processo de build e deploy...${RESET}`);
 main();
