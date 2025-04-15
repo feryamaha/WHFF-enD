@@ -144,6 +144,23 @@ async function makeCommitAndPush(bundleName) {
     }
 }
 
+// Função para contagem regressiva
+async function countdown() {
+    console.log(`${BLUE}⏳ Iniciando contagem regressiva para verificação manual...${RESET}`);
+    console.log(`${YELLOW}⚠️ Verifique se:${RESET}`);
+    console.log(`${YELLOW}  - A página abriu corretamente${RESET}`);
+    console.log(`${YELLOW}  - Todos os componentes carregaram${RESET}`);
+    console.log(`${YELLOW}  - Não há erros no console do navegador${RESET}`);
+    console.log(`${YELLOW}  - Pressione Ctrl+C se encontrar problemas${RESET}`);
+    
+    for (let i = 30; i > 0; i--) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log(`${BLUE}⏳ ${i.toString().padStart(2, '0')} segundos restantes...${RESET}`);
+    }
+    
+    console.log(`${GREEN}✅ Verificação manual concluída. Iniciando processo final...${RESET}`);
+}
+
 // Função principal
 async function main() {
     try {
@@ -159,15 +176,8 @@ async function main() {
         // 2. Inicia o servidor de desenvolvimento
         await startDevServer();
 
-        // 3. Aguarda 30 segundos para verificação manual
-        console.log(`${BLUE}⏳ Aguardando 30 segundos para verificação manual da página...${RESET}`);
-        console.log(`${YELLOW}⚠️ Verifique se:${RESET}`);
-        console.log(`${YELLOW}  - A página abriu corretamente${RESET}`);
-        console.log(`${YELLOW}  - Todos os componentes carregaram${RESET}`);
-        console.log(`${YELLOW}  - Não há erros no console do navegador${RESET}`);
-        console.log(`${YELLOW}  - Pressione Ctrl+C se encontrar problemas${RESET}`);
-        
-        await new Promise(resolve => setTimeout(resolve, 30000));
+        // 3. Aguarda 30 segundos com contagem regressiva
+        await countdown();
 
         // 4. Faz o commit e atualiza o repositório
         await makeCommitAndPush(latestBundle);
@@ -175,6 +185,10 @@ async function main() {
         console.log(`${BLUE}═══════════════════════════════════════${RESET}`);
         console.log(`${GREEN}✅ Processo concluído com sucesso!${RESET}`);
         console.log(`${BLUE}🚀 Projeto buildado, deployado e atualizado.${RESET}`);
+        console.log(`${BLUE}═══════════════════════════════════════${RESET}`);
+        console.log(`${BLUE}AMBIENTE DE DESENVOLVIMENTO LOCALHOST ATIVO${RESET}`);
+        console.log(`${YELLOW}Para pausar ative "ctrl + C"${RESET}`);
+        console.log(`${BLUE}═══════════════════════════════════════${RESET}`);
 
     } catch (error) {
         console.error(`${RED}❌ ERRO DURANTE O PROCESSO: ${error.message.toUpperCase()}${RESET}`);
